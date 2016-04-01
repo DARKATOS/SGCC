@@ -9,15 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<link type="text/css" rel="stylesheet" href="../src/java/intermedios/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="../src/java/intermedios/carousel.css">
-        <link type="text/css" rel="stylesheet" href="../src/java/intermedios/ie10-viewport-bug-workaround.css">
-        <script type="text/javascript" src="../src/java/intermedios/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../src/java/intermedios/holder.min.js"></script>
-        <script type="text/javascript" src="../src/java/intermedios/ie-emulation-modes-warning.js"></script>
-        <script type="text/javascript" src="../src/java/intermedios/ie10-viewport-bug-workaround.js"></script>
-        <script type="text/javascript" src="../src/java/intermedios/jquery.min.js"></script>-->
-
         <link type="text/css" rel="stylesheet" href="intermedios/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="intermedios/carousel.css">
         <link type="text/css" rel="stylesheet" href="intermedios/ie10-viewport-bug-workaround.css">
@@ -49,7 +40,6 @@
                                 <li class="active"><a href="index.jsp">Inicio</a></li>
                                 <li><a href="#">Misión</a></li>
                                 <li><a href="#">Visión</a></li>
-                                <li><a href="#">Contacto</a></li>
                                 <!--<li class="dropdown">
                                     <a href="http://getbootstrap.com/examples/carousel/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
