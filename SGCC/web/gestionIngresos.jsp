@@ -69,8 +69,8 @@
                     <h1 class="page-header">Gestion de Ingresos</h1>
 
                     <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NIModal">Nuevo Ingreso »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NMModal">Modificar Ingreso »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NIModal">Eliminar Ingreso »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#MIModal">Modificar Ingreso »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#EIModal">Eliminar Ingreso »</a>
                     <br>
              
                     <!-- Modal INSERTAR -->

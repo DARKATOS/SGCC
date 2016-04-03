@@ -5,47 +5,46 @@
  */
 package modelos;
 
-import java.awt.Image;
-
 /**
  *
  * @author Jorge Alejandro
  */
-public class Soporte {
-    private String identificador;
-    private Image imagen;
+public class Concepto {
+    private int identificador;
+    private String nombre;
 
-    public Soporte(String identificador, Image imagen) {
+    public Concepto(int identificador, String nombre) {
         this.identificador = identificador;
-        this.imagen = imagen;
+        this.nombre = nombre;
     }
 
     /**
      * @return the identificador
      */
-    public String getIdentificador() {
+    public int getIdentificador() {
         return identificador;
     }
 
     /**
      * @param identificador the identificador to set
      */
-    public void setIdentificador(String identificador) {
+    public void setIdentificador(int identificador) {
         this.identificador = identificador;
     }
 
     /**
-     * @return the imagen
+     * @return the nombre
      */
-    public Image getImagen() {
-        return imagen;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param imagen the imagen to set
+     * @param nombre the nombre to set
      */
-    public void setImagen(Image imagen) {
-        this.imagen = imagen;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+    
     
 }

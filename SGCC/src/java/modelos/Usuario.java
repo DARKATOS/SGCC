@@ -10,18 +10,28 @@ package modelos;
  * @author Jorge Alejandro
  */
 public class Usuario {
+    private int identificador;
     private String nombre;
     private String cedula;
     private String correo;
     private String cargo;
     private String contraseña;
 
-    public Usuario(String nombre, String cedula, String correo, String cargo, String contraseña) {
+    public Usuario(int identificador, String nombre, String cedula, String correo, String cargo, String contraseña) {
+        this.identificador = identificador;
         this.nombre = nombre;
         this.cedula = cedula;
         this.correo = correo;
         this.cargo = cargo;
         this.contraseña = contraseña;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
     }
 
     /**
@@ -93,8 +103,4 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
-    
-    
-    
 }

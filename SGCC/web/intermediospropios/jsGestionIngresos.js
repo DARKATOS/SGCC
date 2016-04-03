@@ -15,28 +15,68 @@ $(function ()
     
     function leerIngresos()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            oper: "leerIngresos"
+        }, function (data) {
+            var resultado = data;
+            for (var i=0; i<resultado.length; i++)
+            {
+                
+            }
+            
+        });
     }
     function nuevoIngreso()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            //Aqui van los parametros
+        }, function (data) {
+            var resultado = data;
+            
+        });
     }
     function modificarIngreso()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            //Aqui van los parametros
+        }, function (data) {
+            var resultado = data;
+            
+        });
     }
     function buscarMI()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            //Aqui van los parametros
+        }, function (data) {
+            var resultado = data;
+            
+        });
     }
     function buscarEI()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            //Aqui van los parametros
+        }, function (data) {
+            var resultado = data;
+            
+        });
     }
     
     function eliminarIngreso()
     {
-        
+        //Aqui se crean variables y captura informacion
+        $.post("Controladora", {
+            //Aqui van los parametros
+        }, function (data) {
+            var resultado = data;
+            
+        });
     }
     
 });
