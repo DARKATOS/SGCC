@@ -18,6 +18,7 @@
         <script type="text/javascript" src="intermedios/holder.min.js"></script>
         <script type="text/javascript" src="intermedios/ie-emulation-modes-warning.js"></script>
         <script type="text/javascript" src="intermedios/ie10-viewport-bug-workaround.js"></script>
+        <script type="text/javascript" src="intermediospropios/jsGestionGastos.js"></script>
         <title>Gestion de Gastos</title>
     </head>
     <body>
@@ -46,9 +47,9 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
+                        <li><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
                         <li><a href="gestionIngresos.jsp">Ingresos</a></li>
-                        <li><a href="gestionGastos.jsp">Gastos</a></li>
+                        <li class="active"><a href="gestionGastos.jsp">Gastos</a></li>
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
@@ -65,7 +66,7 @@
                     </ul>-->
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Gestion de Ingresos</h1>
+                    <h1 class="page-header">Gestion de Gastos</h1>
 
                     <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NGModal">Nuevo Gasto »</a>
                     <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#MGModal">Modificar Gasto »</a>
@@ -75,39 +76,39 @@
                     <!-- Modal INSERTAR -->
                     <div class="modal fade" id="NGModal" tabindex="-1" role="dialog" aria-labelledby="ImyModalLabel">
                         <div class="modal-dialog" role="document">
-                            
+                            <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title" id="ImyModalLabel">CREAR NUEVO GASTO</h4>
                                 </div>
-                                
+                                <div class="modal-body">
                                     <h5>Fecha</h5>
                                     <input type="date" class="form-control" id="fechaNG">
-                                    <br>
+                                    <br>     
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaNG">
                                     <br>
                                     <h5>Concepto:</h5>
                                     <input type="text" class="form-control" id="conceptoNG">
                                     <br>
-                                    <h5>Valor Total:</h5>
-                                    <select type="nu" min="50" class="form-control" id="valortNG">
+                                    <h5>Valor Total</h5>
+                                    <input type="number" min="50" class="form-control" id="valortNG">
                                     <br>
-                                    <h5>Fuente:</h5>
-                                    <select id="conceptoNG" class="form-control" size="1"></select>
+                                    <h5>Fuente</h5>
+                                    <input type="text" class="form-control" id="FuenteNG">
                                     <br>
-                                    <h5>Id del Soporte:</h5>
-                                    <input type="text" class="form-control" id="idsoporteNG">
+                                    <h5>Id de la factura</h5>
+                                    <input type="text" class="form-control" id="idfacturaNG">
                                     <br>
-                                    <h5>Soporte:</h5>
+                                    <h5>Soporte</h5>
                                     <input type="file" class="form-control" id="soporteNG">
                                     <br>
-                                
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                     <button type="button" class="btn btn-primary" id="nuevoGasto">Guardar</button>
                                 </div>
-                            
+                            </div>
                         </div>
                     </div>
 

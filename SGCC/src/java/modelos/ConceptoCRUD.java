@@ -15,11 +15,27 @@ import java.util.LinkedList;
  */
 public class ConceptoCRUD {
     
-    public LinkedList<Concepto> leerConceptos()
+    public LinkedList<Concepto> leerConceptosIngreso()
     {
         try {
             LinkedList<Concepto>conceptos=new LinkedList<>();
-            Conexion.fop=Conexion.conexion.prepareCall("call leerConceptos()");
+            Conexion.fop=Conexion.conexion.prepareCall("call LEER_CONCEPTOS_INGRESO()");
+            ResultSet resultado=Conexion.fop.executeQuery();
+            while(resultado.next())
+            {
+                Concepto concepto=new Concepto(resultado.getInt("IDENTIFICADOR"), resultado.getString("NOMBRE"));
+                conceptos.add(concepto);
+            }
+            return conceptos;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    public LinkedList<Concepto> leerConceptosGasto()
+    {
+        try {
+            LinkedList<Concepto>conceptos=new LinkedList<>();
+            Conexion.fop=Conexion.conexion.prepareCall("call LEER_CONCEPTOS_GASTO()");
             ResultSet resultado=Conexion.fop.executeQuery();
             while(resultado.next())
             {

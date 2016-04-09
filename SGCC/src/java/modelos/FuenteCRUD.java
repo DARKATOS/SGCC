@@ -14,12 +14,14 @@ import java.util.LinkedList;
  * @author Jorge Alejandro
  */
 public class FuenteCRUD {
-    
+
+    public FuenteCRUD() {
+    }
     public LinkedList<Fuente> leerFuentes()
     {
         try {
             LinkedList<Fuente>fuentes=new LinkedList<>();
-            Conexion.fop=Conexion.conexion.prepareCall("call leerFuentes()");
+            Conexion.fop=Conexion.conexion.prepareCall("call LEER_FUENTES()");
             ResultSet resultado=Conexion.fop.executeQuery();
             while(resultado.next())
             {

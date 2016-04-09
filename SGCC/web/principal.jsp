@@ -47,8 +47,8 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li class="active"><a href="#">Resumen <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Ingresos</a></li>
-                        <li><a href="#">Gastos</a></li>
+                        <li><a href="gestionIngresos.jsp">Ingresos</a></li>
+                        <li><a href="gestionGastos.jsp">Gastos</a></li>
                         <li><a href="#">Informes</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">

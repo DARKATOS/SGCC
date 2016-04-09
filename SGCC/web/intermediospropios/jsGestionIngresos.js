@@ -17,15 +17,12 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
         $.post("Controladora", {
-            oper: "leerIngresos"
+            //Aqui van los parametros
         }, function (data) {
             var resultado = data;
-            for (var i=0; i<resultado.length; i++)
-            {
-                
-            }
             
         });
+        
     }
     function nuevoIngreso()
     {

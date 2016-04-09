@@ -29,6 +29,14 @@ public class Conexion {
             System.out.println("Error en la conexion");
         }
     }
+    
+    public void desconectar() {
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al desconectar de la base de datos");
+        }
+    }
 
     public Connection getConexion() {
         return conexion;

@@ -18,8 +18,9 @@ $(function ()
     function leerGastos()
     {
         //Aqui se crean variables y captura informacion
-        var tabla=document.getElementById("tabla1");
-        $.post("Servlet", {
+        var tabla=document.getElementById("tabla");
+        $.post("Controladora", {
+            operacion:"leerGastos"
             //Aqui van los parametros
         }, function (data) {
             var resultado = data;
@@ -72,7 +73,7 @@ $(function ()
         var fuente=document.getElementById("fuenteNG").value;
         var idsoporte=document.getElementById("idsoporteNG").value;
         var soporte=document.getElementById("soporteNG").value;
-        $.post("Servlet", {
+        $.post("Controladora", {
             oper: "nuevoGasto",
             fecha:fecha,
             empresa: empresa,

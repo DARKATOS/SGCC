@@ -18,6 +18,7 @@
         <script type="text/javascript" src="intermedios/holder.min.js"></script>
         <script type="text/javascript" src="intermedios/ie-emulation-modes-warning.js"></script>
         <script type="text/javascript" src="intermedios/ie10-viewport-bug-workaround.js"></script>
+        <script type="text/javascript" src="intermediospropios/jsGestionIngresos.js"></script>
         <title>Gestion de ingresos</title>
         
     </head>
@@ -47,8 +48,8 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
-                        <li><a href="gestionIngresos.jsp">Ingresos</a></li>
+                        <li><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="gestionIngresos.jsp">Ingresos</a></li>
                         <li><a href="gestionGastos.jsp">Gastos</a></li>
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
