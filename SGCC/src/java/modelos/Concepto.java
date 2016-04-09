@@ -18,6 +18,20 @@ public class Concepto {
         this.nombre = nombre;
     }
 
+    public Concepto(int identificador) {
+        this.identificador=identificador;
+    }
+    
+    
+    /**
+     * @see Permite obtener el nombre del concepto segun su identificador
+     * @return el nombrre del concpeto
+     */
+    public String NombreConcepto()
+    {
+        return null;
+    }
+
     /**
      * @return the identificador
      */

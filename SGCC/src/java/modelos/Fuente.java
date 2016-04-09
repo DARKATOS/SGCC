@@ -5,6 +5,9 @@
  */
 package modelos;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Jorge Alejandro
@@ -16,6 +19,19 @@ public class Fuente {
     public Fuente(int identificador, String nombre) {
         this.identificador = identificador;
         this.nombre = nombre;
+    }
+
+    public Fuente(int identificador) {
+        this.identificador=identificador;
+    }
+
+    /**
+     * @see Permite obtener el nombre de la fuente segun su identificador
+     * @return nombre de la fuente
+     */
+    public String NombreFuente()
+    {
+        return null;
     }
 
     /**

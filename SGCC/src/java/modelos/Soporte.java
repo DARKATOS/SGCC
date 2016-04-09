@@ -12,26 +12,30 @@ import java.awt.Image;
  * @author Jorge Alejandro
  */
 public class Soporte {
-    private String identificador;
+    private int identificador;
+    private String numero;
     private Image imagen;
 
-    public Soporte(String identificador, Image imagen) {
+    public Soporte(int identificador, String numero, Image imagen) {
         this.identificador = identificador;
+        this.numero = numero;
         this.imagen = imagen;
     }
 
-    /**
-     * @return the identificador
-     */
-    public String getIdentificador() {
+    public int getIdentificador() {
         return identificador;
     }
 
-    /**
-     * @param identificador the identificador to set
-     */
-    public void setIdentificador(String identificador) {
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setIdentificador(int identificador) {
         this.identificador = identificador;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     /**

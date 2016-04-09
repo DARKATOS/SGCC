@@ -15,15 +15,26 @@ public class Usuario {
     private String cedula;
     private String correo;
     private String cargo;
-    private String contraseña;
+    private String contrasena;
 
-    public Usuario(int identificador, String nombre, String cedula, String correo, String cargo, String contraseña) {
+    public Usuario(int identificador) {
+        this.identificador=identificador;
+        this.nombre=null;
+        this.cedula=null;
+        this.correo=null;
+        this.cargo=null;
+        this.contrasena=null;
+    }
+    
+    
+
+    public Usuario(int identificador, String nombre, String cedula, String correo, String cargo, String contrasena) {
         this.identificador = identificador;
         this.nombre = nombre;
         this.cedula = cedula;
         this.correo = correo;
         this.cargo = cargo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
     }
 
     public int getIdentificador() {
@@ -90,17 +101,13 @@ public class Usuario {
         this.cargo = cargo;
     }
 
-    /**
-     * @return the contraseña
-     */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    /**
-     * @param contraseña the contraseña to set
-     */
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
+
+    
 }

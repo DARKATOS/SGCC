@@ -15,14 +15,14 @@ public class Conexion {
 
     public static Connection conexion;
     public static Statement consulta;
-    public static CallableStatement funcion;
+    public static CallableStatement fop;
 
     public Conexion() {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyectosoftware2", "root", "12345");
             consulta=conexion.createStatement();
-            funcion=null;
+            fop=null;
         } catch (ClassNotFoundException ex) {
             System.out.println("Error en la clase");
         } catch (SQLException ex) {
