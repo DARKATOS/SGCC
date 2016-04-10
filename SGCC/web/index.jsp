@@ -17,7 +17,7 @@
         <script type="text/javascript" src="intermedios/holder.min.js"></script>
         <script type="text/javascript" src="intermedios/ie-emulation-modes-warning.js"></script>
         <script type="text/javascript" src="intermedios/ie10-viewport-bug-workaround.js"></script>
-        
+        <script type="text/javascript" src="intermediospropios/jsSesion.js"></script>
         <title>Sistema de informacion contable</title>
     </head>
     <body>
@@ -52,6 +52,11 @@
                                         <li><a href="#">One more separated link</a></li>
                                     </ul>
                                 </li>-->
+                            </ul>
+                            <ul class=" nav navbar-nav navbar-form navbar-right">
+                                <li><input type="text" class="form-control" id="cedula" placeholder="Cedula"</li>
+                                <li><input type="text" class="form-control" id="contrasena" placeholder="Contraseña"</a></li>
+                                <li><button id="iniciarSesion" class="btn btn-success">Iniciar Sesion</button></li>
                             </ul>
                         </div>
                     </div>

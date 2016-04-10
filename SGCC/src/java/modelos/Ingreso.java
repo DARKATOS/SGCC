@@ -5,6 +5,7 @@
  */
 package modelos;
 
+
 import java.util.LinkedList;
 
 /**
@@ -12,66 +13,99 @@ import java.util.LinkedList;
  * @author Jorge Alejandro
  */
 public class Ingreso {
+
+    private Usuario usuario;
     private int identificador;
+    private String fecha;
     private String empresa;
-    private String concepto;
+    private Concepto concepto;
     private int cantidad;
     private int valorunitario;
     private int valortotal;
-    private LinkedList<Soporte>soportes;
+    private Fuente fuente;
+    private LinkedList<Soporte> soportes;
 
-    public Ingreso(int identificador, String empresa, String concepto, int cantidad, int valorunitario, int valortotal, Soporte soporte) {
+    public Ingreso(Usuario usuario, String fecha, int identificador, String empresa, Concepto concepto, int cantidad, int valorunitario, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
+        this.usuario = usuario;
         this.identificador = identificador;
-        this.empresa=empresa;
+        this.fecha=fecha;
+        this.empresa = empresa;
         this.concepto = concepto;
         this.cantidad = cantidad;
         this.valorunitario = valorunitario;
         this.valortotal = valortotal;
-        this.soportes=new LinkedList<>();
-        this.soportes.add(soporte);
+        this.fuente = fuente;
+        this.soportes = soportes;
     }
 
-    public void modificar(String empresa,String concepto,int cantidad,int valorunitario, int valortotal)
-    {
-        this.empresa=empresa;
-        this.concepto=concepto;
-        this.cantidad=cantidad;
-        this.valorunitario=valorunitario;
-        this.valortotal=valortotal;
- 
-        //Es aca donde llamo a la funcion de modificarIngreso de MYSQL.
-    }
-    
-    public void eliminar()
-    {
-        
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
     }
 
+    /**
+     * @return the identificador
+     */
     public int getIdentificador() {
         return identificador;
     }
 
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @return the empresa
+     */
     public String getEmpresa() {
         return empresa;
     }
-    
-    public String getConcepto() {
+
+    /**
+     * @return the concepto
+     */
+    public Concepto getConcepto() {
         return concepto;
     }
 
+    /**
+     * @return the cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * @return the valorunitario
+     */
     public int getValorunitario() {
         return valorunitario;
     }
 
+    /**
+     * @return the valortotal
+     */
     public int getValortotal() {
         return valortotal;
     }
 
+    /**
+     * @return the fuente
+     */
+    public Fuente getFuente() {
+        return fuente;
+    }
+
+    /**
+     * @return the soportes
+     */
     public LinkedList<Soporte> getSoportes() {
         return soportes;
     }
+    
 }

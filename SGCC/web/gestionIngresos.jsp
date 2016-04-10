@@ -18,6 +18,7 @@
         <script type="text/javascript" src="intermedios/holder.min.js"></script>
         <script type="text/javascript" src="intermedios/ie-emulation-modes-warning.js"></script>
         <script type="text/javascript" src="intermedios/ie10-viewport-bug-workaround.js"></script>
+        <script type="text/javascript" src="intermediospropios/jsGestionIngresos.js"></script>
         <title>Gestion de ingresos</title>
         
     </head>
@@ -47,8 +48,8 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
-                        <li><a href="gestionIngresos.jsp">Ingresos</a></li>
+                        <li><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="gestionIngresos.jsp">Ingresos</a></li>
                         <li><a href="gestionGastos.jsp">Gastos</a></li>
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
@@ -69,8 +70,8 @@
                     <h1 class="page-header">Gestion de Ingresos</h1>
 
                     <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NIModal">Nuevo Ingreso »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NMModal">Modificar Ingreso »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NIModal">Eliminar Ingreso »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#MIModal">Modificar Ingreso »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#EIModal">Eliminar Ingreso »</a>
                     <br>
              
                     <!-- Modal INSERTAR -->
@@ -82,14 +83,16 @@
                                     <h4 class="modal-title" id="ImyModalLabel">CREAR NUEVO INGRESO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>Identificador</h5>
-                                    <input type="text" class="form-control" id="idNI">
+                                    <h5>Fecha:</h5>
+                                    <input type="date" class="form-control" id="fechaNI">
                                     <br>
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaNI">
                                     <br>
                                     <h5>Concepto:</h5>
-                                    <input type="text" class="form-control" id="conceptoNI" disabled="">
+                                    <select name="conceptoNI" id="conceptoNI" class="form-control">
+                                        <option value="0" selected="">Seleccione una opcion</option>
+                                    </select>
                                     <br>
                                     <h5>Cantidad:</h5>
                                     <input type="number" min="1" class="form-control" id="cantidadNI">
@@ -100,8 +103,13 @@
                                     <h5>Valor Total</h5>
                                     <input type="number" min="50" class="form-control" id="valortNI">
                                     <br>
-                                    <h5>Id de la factura</h5>
-                                    <input type="text" class="form-control" id="idfacturaNI">
+                                    <h5>Fuente</h5>
+                                    <select name="fuenteNI" id="fuenteNI" class="form-control">
+                                        <option value="0" selected="">Seleccione una fuente</option>
+                                    </select>
+                                    <br>
+                                    <h5>Id del soporte</h5>
+                                    <input type="text" class="form-control" id="idsoporteNI">
                                     <br>
                                     <h5>Soporte</h5>
                                     <input type="file" class="form-control" id="soporteNI">
@@ -165,10 +173,13 @@
                                     <h4 class="modal-title" id="EmyModalLabel">ELIMINAR INGRESO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>ID</h5>
+                                    <h5>Identificador</h5>
                                     <input type="number" class="form-control" id="idOEI">
                                     <br>
                                     <button class="btn btn-success" id="buscarEI">Buscar</button>
+                                    <br>
+                                    <h5>Fecha:</h5>
+                                    <input type="date" class="form-control" id="fechaEI" disabled="">
                                     <br>
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaEI" disabled="">
@@ -203,55 +214,17 @@
                             <thead>
                                 <tr>
                                     <th>Identificador</th>
+                                    <th>Fecha</th>
                                     <th>Empresa</th>
                                     <th>Concepto</th>
+                                    <th>Cantidad</th>
                                     <th>Valor Unitario</th>
                                     <th>Valor Total</th>
+                                    <th>Fuente</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1,001</td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>amet</td>
-                                    <td>consectetur</td>
-                                    <td>adipiscing</td>
-                                    <td>elit</td>
-                                </tr>
-                                <tr>
-                                    <td>1,003</td>
-                                    <td>Integer</td>
-                                    <td>nec</td>
-                                    <td>odio</td>
-                                    <td>Praesent</td>
-                                </tr>
-                                <tr>
-                                    <td>1,009</td>
-                                    <td>augue</td>
-                                    <td>semper</td>
-                                    <td>porta</td>
-                                    <td>Mauris</td>
-                                </tr>
-                                <tr>
-                                    <td>1,010</td>
-                                    <td>massa</td>
-                                    <td>Vestibulum</td>
-                                    <td>lacinia</td>
-                                    <td>arcu</td>
-                                </tr>
-                                <tr>
-                                    <td>1,015</td>
-                                    <td>sodales</td>
-                                    <td>ligula</td>
-                                    <td>in</td>
-                                    <td>libero</td>
-                                </tr>
+                            <tbody id="tabla">
+                                
                             </tbody>
                         </table>
                     </div>
