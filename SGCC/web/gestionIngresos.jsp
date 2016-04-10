@@ -137,20 +137,33 @@
                                     <br>
                                     <button class="btn btn-success" id="buscarMI">Buscar</button>
                                     <br>
+                                    <h5>Fecha:</h5>
+                                    <input type="text" class="form-control" id="fechaMI">
+                                    <br>
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaMI">
                                     <br>
                                     <h5>Concepto:</h5>
-                                    <input type="text" class="form-control" id="conceptoMI" disabled="">
+                                    <select name="conceptoMI" class="form-control" id="conceptoMI">
+                                        <option value="0">Seleccione una opcion</option>
+                                    </select>
                                     <br>
                                     <h5>Valor Unitario:</h5>
-                                    <input type="text" min="50" class="form-control" id="valoruMI">
+                                    <input type="number" min="50" class="form-control" id="valoruMI">
+                                    <br>
+                                    <h5>Cantidad:</h5>
+                                    <input type="text" min="1" class="form-control" id="cantidadMI">
                                     <br>
                                     <h5>Valor total:</h5>
                                     <input type="number" min="50" class="form-control" id="valortMI">
                                     <br>
-                                    <h5>Id de la Factura</h5>
-                                    <input type="text" class="form-control" id="idfacturaMI">
+                                    <h5>Fuente</h5>
+                                    <select name="fuenteMI" class="form-control" id="fuenteMI">
+                                        <option value="0">Seleccione una fuente</option>
+                                    </select>
+                                    <br>
+                                    <h5>Identificador del soporte</h5>
+                                    <input type="text" class="form-control" id="idsoporteMI">
                                     <br>
                                     <h5>Soporte:</h5>
                                     <input type="file" class="form-control" id="soporteMI">
@@ -179,7 +192,7 @@
                                     <button class="btn btn-success" id="buscarEI">Buscar</button>
                                     <br>
                                     <h5>Fecha:</h5>
-                                    <input type="date" class="form-control" id="fechaEI" disabled="">
+                                    <input type="text" class="form-control" id="fechaEI" disabled="">
                                     <br>
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaEI" disabled="">
@@ -187,14 +200,17 @@
                                     <h5>Concepto:</h5>
                                     <input type="text" class="form-control" id="conceptoEI" disabled="">
                                     <br>
-                                    <h5>Cantidad:</h5>
-                                    <input type="text" class="form-control" id="cantidadEI" disabled="">
-                                    <br>
                                     <h5>Valor Unitario:</h5>
                                     <input type="text" class="form-control" id="valoruEI" disabled="">
                                     <br>
-                                    <h5>Valor Total</h5>
+                                    <h5>Cantidad:</h5>
+                                    <input type="text" class="form-control" id="cantidadEI" disabled="">
+                                    <br>
+                                    <h5>Valor Total:</h5>
                                     <input type="text" class="form-control" id="valortEI" disabled="">
+                                    <br>
+                                    <h5>Fuente:</h5>
+                                    <input type="text" class="form-control" id="fuenteEI" disabled="">
                                     <br>
                                     <h5>Soporte para eliminación</h5>
                                     <input type="file" class="form-control" id="soporteEI" disabled="">

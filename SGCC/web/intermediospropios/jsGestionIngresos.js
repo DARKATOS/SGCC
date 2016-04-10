@@ -88,12 +88,10 @@ $(function ()
         var fecha = document.getElementById("fechaNI").value;
         var empresa = document.getElementById("empresaNI").value;
         var concepto = $('select[name=conceptoNI]').val();
-        alert(concepto);
         var cantidad = document.getElementById("cantidadNI").value;
         var valorunitario = document.getElementById("valoruNI").value;
         var valortotal = document.getElementById("valortNI").value;
         var fuente = $('select[name=fuenteNI]').val();
-        alert(fuente);
         var idsoporte = document.getElementById("idsoporteNI").value;
         var soporte = null;
         $.post("Controladora", {
@@ -120,11 +118,36 @@ $(function ()
     function modificarIngreso()
     {
         //Aqui se crean variables y captura informacion
+        var identificador = document.getElementById("idOMI").value;
+        var fecha = document.getElementById("fechaMI").value;
+        var empresa = document.getElementById("empresaMI").value;
+        var concepto = $('select[name=conceptoMI]').val();
+        var cantidad = document.getElementById("cantidadMI").value;
+        var valorunitario = document.getElementById("valoruMI").value;
+        var valortotal = document.getElementById("valortMI").value;
+        var fuente = $('select[name=fuenteMI]').val();
+        var idsoporte = document.getElementById("idsoporteMI").value;
+        var soporte = null;
         $.post("Controladora", {
             //Aqui van los parametros
+            operacion: "modificarIngreso",
+            identificador: identificador,
+            fecha: fecha,
+            empresa: empresa,
+            concepto: concepto,
+            valorunitario: valorunitario,
+            cantidad: cantidad,
+            valortotal: valortotal,
+            fuente: fuente,
+            idsoporte: idsoporte,
+            soporte: soporte
         }, function (data) {
             var resultado = data;
-
+            alert(resultado);
+            leerIngresos();
+        }).fail(function ()
+        {
+            alert("error en la operacion modificarIngreso");
         });
     }
     function buscarMI()
@@ -136,6 +159,13 @@ $(function ()
             identificador: identificador
         }, function (data) {
             var resultado = data;
+            document.getElementById("fechaMI").value = resultado.fecha;
+            document.getElementById("empresaMI").value = resultado.empresa;
+            leerConceptosModificar(resultado.concepto.identificador);
+            document.getElementById("valoruMI").value = resultado.valorunitario;
+            document.getElementById("cantidadMI").value = resultado.cantidad;
+            document.getElementById("valortMI").value = resultado.valorunitario;
+            leerFuentesModificar(resultado.fuente.identificador);
 
         }).fail(function ()
         {
@@ -145,22 +175,36 @@ $(function ()
     function buscarEI()
     {
         //Aqui se crean variables y captura informacion
+        var identificador = document.getElementById("idOEI").value;
         $.post("Controladora", {
             //Aqui van los parametros
+            operacion: "buscarIngreso",
+            identificador: identificador
         }, function (data) {
             var resultado = data;
-
+            var resultado = data;
+            document.getElementById("fechaEI").value = resultado.fecha;
+            document.getElementById("empresaEI").value = resultado.empresa;
+            document.getElementById("conceptoEI").value = resultado.concepto.nombre;
+            document.getElementById("valoruEI").value = resultado.valorunitario;
+            document.getElementById("cantidadEI").value = resultado.cantidad;
+            document.getElementById("valortEI").value = resultado.valorunitario;
+            document.getElementById("fuenteEI").value = resultado.fuente.nombre;
         });
     }
 
     function eliminarIngreso()
     {
         //Aqui se crean variables y captura informacion
+        var identificador=document.getElementById("idOEI").value;
         $.post("Controladora", {
             //Aqui van los parametros
+            operacion:"eliminarIngreso",
+            identificador:identificador
         }, function (data) {
             var resultado = data;
-
+            alert(resultado);
+            leerIngresos();
         });
     }
 
@@ -181,6 +225,69 @@ $(function ()
         }).fail(function ()
         {
             alert("Error en la operacion leerConceptos");
+        });
+    }
+
+    function leerConceptosModificar(seleccionado)
+    {
+        $.post("Controladora", {
+            operacion: "leerConceptosIngreso"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("conceptoMI");
+            if (select.hasChildNodes())
+            {
+                while (select.childNodes.length >= 1)
+                {
+                    select.removeChild(select.firstChild);
+                }
+            }
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                if (resultado[i].identificador == seleccionado)
+                {
+                    option.setAttribute("selected", "");
+                }
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerConceptosModificar");
+        });
+    }
+
+    function leerFuentesModificar(seleccionado)
+    {
+        $.post("Controladora", {
+            operacion: "leerFuentes"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("fuenteMI");
+            if (select.hasChildNodes())
+            {
+                while (select.childNodes.length >= 1)
+                {
+                    select.removeChild(select.firstChild);
+                }
+            }
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                if (seleccionado == resultado[i].identificador)
+                {
+                    option.setAttribute("selected", "");
+                }
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerFuentes");
         });
     }
 
