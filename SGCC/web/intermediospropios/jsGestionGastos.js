@@ -5,14 +5,16 @@
  */
 $(function ()
 {
-    $("#leerGastos").on("load", leerGastos);
+
     $("#nuevoGasto").on("click", nuevoGasto);
     $("#modificarGasto").on("click", modificarGasto);
     $("#eliminarGasto").on("click", eliminarGasto);
     $("#buscarMG").on("click", buscarMG);
     $("#buscarEG").on("click", buscarEG);
     
-    $("#parametrosGastos").on("click", parametrosGastos);
+    $(document).ready(function () {
+        leerGastos();
+    });
 
 
     function leerGastos()
@@ -26,6 +28,7 @@ $(function ()
             var resultado = data;
             for (var i=0; resultado.length; i++)
             {
+           
                 var tr = document.createElement("tr");
                 var td1 = document.createElement("td");
                 var texto1 = document.createTextNode(resultado[i].identificador);
@@ -37,28 +40,28 @@ $(function ()
                 var texto3 = document.createTextNode(resultado[i].empresa);
                 td3.appendChild(texto3);
                 var td4 = document.createElement("td");
-                var texto4 = document.createTextNode(resultado[i].concepto);
+                var texto4 = document.createTextNode(resultado[i].concepto.nombre);
                 td4.appendChild(texto4);
                 var td5 = document.createElement("td");
                 var texto5 = document.createTextNode(resultado[i].valortotal);
                 td5.appendChild(texto5);
                 var td6 = document.createElement("td");
-                var texto6 = document.createTextNode(resultado[i].fuente);
+                var texto6 = document.createTextNode(resultado[i].fuente.nombre);
                 td6.appendChild(texto6);
                 //Link de soportes
-                var td7 = document.createElement("td");
-                var link = document.createElement("button");
-                link.setAttribute("id","soportes");
-                link.setAttribute("class","form-control");
-                link.setAttribute("value",resultado[i].identificador);
-                td7.appendChild(link);
+//                var td7 = document.createElement("td");
+//                var link = document.createElement("button");
+//                link.setAttribute("id","soportes");
+//                link.setAttribute("class","form-control");
+//                link.setAttribute("value",resultado[i].identificador);
+//                td7.appendChild(link);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
                 tr.appendChild(td4);
                 tr.appendChild(td5);
                 tr.appendChild(td6);
-                tr.appendChild(td7);
+                //tr.appendChild(td7);
                 tabla.appendChild(tr);
             }
         });
@@ -128,24 +131,6 @@ $(function ()
         }, function (data) {
             var resultado = data;
             
-        });
-    }
-    
-    function parametrosGastos()
-    {
-        
-        var combo=document.getElementById("conceptoNG");
-        $.post("Servlet", {
-            oper:"leerConceptos"
-        }, function (data) {
-            var resultado = data;
-            for (var i=0; resultado.length; i++)
-            {
-                var opcion=document.createElement("option");
-                opcion.setAttribute("value",resultado[i].identificador);
-                opcion.innerHTML=resultado[i].nombre;
-                combo.appendChild(opcion);
-            }
         });
     }
 });

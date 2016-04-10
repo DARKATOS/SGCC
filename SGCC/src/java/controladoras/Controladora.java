@@ -19,6 +19,8 @@ import modelos.ConceptoCRUD;
 import modelos.Conexion;
 import modelos.Fuente;
 import modelos.FuenteCRUD;
+import modelos.Gasto;
+import modelos.GastoCRUD;
 import modelos.Ingreso;
 import modelos.IngresoCRUD;
 
@@ -90,8 +92,8 @@ public class Controladora extends HttpServlet {
         }
         else if("leerIngresos".equals(operacion))
         {
-            IngresoCRUD ingreso=new IngresoCRUD();
-            LinkedList<Ingreso> ingresos=ingreso.leerIngresos();
+            IngresoCRUD CRUD=new IngresoCRUD();
+            LinkedList<Ingreso> ingresos=CRUD.leerIngresos();
             Gson json = new Gson();
             String resultado = json.toJson(ingresos);
             response.setContentType("application/json");
@@ -99,8 +101,8 @@ public class Controladora extends HttpServlet {
         }
         else if("leerConceptosIngreso".equals(operacion))
         {
-            ConceptoCRUD concepto=new ConceptoCRUD();
-            LinkedList<Concepto>conceptos=concepto.leerConceptosIngreso();
+            ConceptoCRUD CRUD=new ConceptoCRUD();
+            LinkedList<Concepto>conceptos=CRUD.leerConceptosIngreso();
             Gson json = new Gson();
             String resultado = json.toJson(conceptos);
             response.setContentType("application/json");
@@ -108,8 +110,8 @@ public class Controladora extends HttpServlet {
         }
         else if("leerFuentes".equals(operacion))
         {
-            FuenteCRUD fuente = new FuenteCRUD();
-            LinkedList<Fuente> fuentes = fuente.leerFuentes();
+            FuenteCRUD CRUD = new FuenteCRUD();
+            LinkedList<Fuente> fuentes = CRUD.leerFuentes();
             Gson json = new Gson();
             String resultado = json.toJson(fuentes);
             response.setContentType("application/json");
@@ -128,9 +130,30 @@ public class Controladora extends HttpServlet {
             int usuario=1;
             String idsoporte=request.getParameter("idsoporte");
             String soporte=request.getParameter("soporte");
-            IngresoCRUD ingreso=new IngresoCRUD();
-            String resultado=ingreso.nuevoIngreso(fecha, empresa, concepto, valorunitario, cantidad, valortotal, fuente, idsoporte, soporte, usuario);
+            IngresoCRUD CRUD=new IngresoCRUD();
+            String resultado=CRUD.nuevoIngreso(fecha, empresa, concepto, valorunitario, cantidad, valortotal, fuente, idsoporte, soporte, usuario);
             response.setContentType("text/plain");
+            response.getWriter().write(resultado);
+        }
+        else if("buscarIngreso".equals(operacion))
+        {
+            int identificador=Integer.parseInt(request.getParameter("identificador"));
+            IngresoCRUD CRUD=new IngresoCRUD();
+            Ingreso ingreso=CRUD.buscarIngreso(identificador);
+            Gson json = new Gson();
+            String resultado = json.toJson(ingreso);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if ("leerGastos".equals(operacion))
+        {
+            System.out.println(" leer gastos controladora");
+            GastoCRUD gasto = new GastoCRUD();
+            LinkedList<Gasto> gastos = gasto.leerGastos();
+            System.out.println("leer gastos crud");
+            Gson json = new Gson();
+            String resultado = json.toJson(gastos);
+            response.setContentType("application/json");
             response.getWriter().write(resultado);
         }
         c.desconectar();

@@ -208,7 +208,6 @@
                                     <th>Concepto</th>
                                     <th>Valor Total</th>
                                     <th>Fuente</th>
-                                    <th>Soportes</th>
                                 </tr>
                             </thead>
                             <tbody id="tabla">

@@ -5,7 +5,6 @@
  */
 package modelos;
 
-import java.sql.Date;
 import java.util.LinkedList;
 
 /**
@@ -16,14 +15,14 @@ public class Gasto {
 
     private Usuario usuario;
     private int identificador;
-    private Date fecha;
+    private String fecha;
     private String empresa;
     private Concepto concepto;
     private int valortotal;
     private Fuente fuente;
     private LinkedList<Soporte> soportes;
 
-    public Gasto(Usuario usuario, int identificador, Date fecha, String empresa, Concepto concepto, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
+    public Gasto(Usuario usuario, int identificador, String fecha, String empresa, Concepto concepto, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
         this.usuario = usuario;
         this.identificador = identificador;
         this.fecha = fecha;
@@ -33,6 +32,8 @@ public class Gasto {
         this.fuente = fuente;
         this.soportes = soportes;
     }
+
+    
 
     /**
      * @return the usuario
@@ -62,17 +63,11 @@ public class Gasto {
         this.identificador = identificador;
     }
 
-    /**
-     * @return the fecha
-     */
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    /**
-     * @param fecha the fecha to set
-     */
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
