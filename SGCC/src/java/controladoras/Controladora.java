@@ -14,10 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Concepto;
 import modelos.ConceptoCRUD;
 import modelos.Conexion;
 import modelos.Fuente;
 import modelos.FuenteCRUD;
+import modelos.Ingreso;
+import modelos.IngresoCRUD;
 
 /**
  *
@@ -83,11 +86,51 @@ public class Controladora extends HttpServlet {
         String operacion = request.getParameter("operacion");
         Conexion c=new Conexion();
         if ("iniciarSesion".equals(operacion)) {
+            
+        }
+        else if("leerIngresos".equals(operacion))
+        {
+            IngresoCRUD ingreso=new IngresoCRUD();
+            LinkedList<Ingreso> ingresos=ingreso.leerIngresos();
+            Gson json = new Gson();
+            String resultado = json.toJson(ingresos);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("leerConceptosIngreso".equals(operacion))
+        {
+            ConceptoCRUD concepto=new ConceptoCRUD();
+            LinkedList<Concepto>conceptos=concepto.leerConceptosIngreso();
+            Gson json = new Gson();
+            String resultado = json.toJson(conceptos);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("leerFuentes".equals(operacion))
+        {
             FuenteCRUD fuente = new FuenteCRUD();
             LinkedList<Fuente> fuentes = fuente.leerFuentes();
             Gson json = new Gson();
             String resultado = json.toJson(fuentes);
             response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("nuevoIngreso".equals(operacion))
+        {
+            String fecha=request.getParameter("fecha");
+            String empresa=request.getParameter("empresa");
+            int concepto=Integer.parseInt(request.getParameter("concepto"));
+            int valorunitario=Integer.parseInt(request.getParameter("valorunitario"));
+            int cantidad=Integer.parseInt(request.getParameter("cantidad"));
+            int valortotal=Integer.parseInt(request.getParameter("valortotal"));
+            int fuente=Integer.parseInt(request.getParameter("fuente"));
+            //Problema con el usuario: Tenemos que saber como son las sesiones en java web para obtener su identificador.
+            int usuario=1;
+            String idsoporte=request.getParameter("idsoporte");
+            String soporte=request.getParameter("soporte");
+            IngresoCRUD ingreso=new IngresoCRUD();
+            String resultado=ingreso.nuevoIngreso(fecha, empresa, concepto, valorunitario, cantidad, valortotal, fuente, idsoporte, soporte, usuario);
+            response.setContentType("text/plain");
             response.getWriter().write(resultado);
         }
         c.desconectar();

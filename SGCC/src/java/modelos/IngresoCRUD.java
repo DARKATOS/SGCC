@@ -7,6 +7,7 @@ package modelos;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,19 +24,19 @@ public class IngresoCRUD {
     {
         try {
             LinkedList<Ingreso>ingresos=new LinkedList<>();
-            Conexion.fop=Conexion.conexion.prepareCall("call leerIngresos()");
+            Conexion.fop=Conexion.conexion.prepareCall("call LEER_INGRESOS()");
             ResultSet resultado=Conexion.fop.executeQuery();
             while(resultado.next())
             {
-                Usuario usuario=new Usuario(resultado.getInt("IDUSUARIO"));
-                String fecha=resultado.getDate("FECHA").toString();
                 int identificador=resultado.getInt("IDENTIFICADOR");
+                String fecha=resultado.getDate("FECHA").toString();
                 String empresa=resultado.getString("EMPRESA");
                 Concepto concepto=new Concepto(resultado.getInt("IDCONCEPTO"));
                 int cantidad=resultado.getInt("CANTIDAD");
                 int valorunitario=resultado.getInt("VALORUNITARIO");
                 int valortotal=resultado.getInt("VALORTOTAL");
                 Fuente fuente=new Fuente(resultado.getInt("IDFUENTE"));
+                Usuario usuario=new Usuario(resultado.getInt("IDUSUARIO"));
                 //Falta obtener soportes del ingreso
                 LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
                 
@@ -49,25 +50,33 @@ public class IngresoCRUD {
     }
     
     
-    public String crearIngreso(Ingreso ingreso)
+    public String nuevoIngreso(String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int usuario)
     {
         try {
-            Conexion.fop=Conexion.conexion.prepareCall("{?=call CREAR_INGRESO(?,?,?,?,?,?,?,?,?)}");
+            Conexion.fop=Conexion.conexion.prepareCall("{?=call NUEVO_INGRESO(?,?,?,?,?,?,?,?)}");
+            Conexion.fop.registerOutParameter(1, Types.INTEGER);
+            Date sqlfecha=Date.valueOf(fecha);
+            Conexion.fop.setDate(2, sqlfecha);
+            Conexion.fop.setString(3, empresa);
+            Conexion.fop.setInt(4, cantidad);
+            Conexion.fop.setInt(5, valorunitario);
+            Conexion.fop.setInt(6, valortotal);
+            Conexion.fop.setInt(7, concepto);
+            Conexion.fop.setInt(8, fuente);
+            Conexion.fop.setInt(9, usuario);
+            Conexion.fop.execute();
+            int ingreso=Conexion.fop.getInt(1);
+            
+            Conexion.fop=Conexion.conexion.prepareCall("{?=call NUEVO_SOPORTE_INGRESO(?,?,?)}");
             Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, ingreso.getIdentificador());
-            Date sqldate=Date.valueOf(ingreso.getFecha());
-            Conexion.fop.setDate(3, sqldate);
-            Conexion.fop.setString(4, ingreso.getEmpresa());
-            Conexion.fop.setInt(5, ingreso.getCantidad());
-            Conexion.fop.setInt(6, ingreso.getValorunitario());
-            Conexion.fop.setInt(7, ingreso.getValortotal());
-            Conexion.fop.setInt(8, ingreso.getConcepto().getIdentificador());
-            Conexion.fop.setInt(9, ingreso.getFuente().getIdentificador());
-            Conexion.fop.setInt(10,ingreso.getUsuario().getIdentificador());
+            Conexion.fop.setInt(2, ingreso);
+            Conexion.fop.setString(3, idsoporte);
+            //Problemas con el soporte: Hay que convertir la ruta en archivo de imagen y luego en un blob
+            Blob sqlsoporte=null;
+            Conexion.fop.setBlob(4, sqlsoporte);
             Conexion.fop.execute();
             String mensaje=Conexion.fop.getString(1);
             return mensaje;
-            
         } catch (SQLException ex) {
             return "No se ha modificado correctamente el ingreso";
         }

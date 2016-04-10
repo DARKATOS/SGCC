@@ -5,9 +5,6 @@
  */
 package modelos;
 
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.LinkedList;
 
 /**
