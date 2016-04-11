@@ -164,7 +164,7 @@ $(function ()
             leerConceptosModificar(resultado.concepto.identificador);
             document.getElementById("valoruMI").value = resultado.valorunitario;
             document.getElementById("cantidadMI").value = resultado.cantidad;
-            document.getElementById("valortMI").value = resultado.valorunitario;
+            document.getElementById("valortMI").value = resultado.valortotal;
             leerFuentesModificar(resultado.fuente.identificador);
 
         }).fail(function ()

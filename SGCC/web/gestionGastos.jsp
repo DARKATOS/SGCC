@@ -89,16 +89,20 @@
                                     <input type="text" class="form-control" id="empresaNG">
                                     <br>
                                     <h5>Concepto:</h5>
-                                    <input type="text" class="form-control" id="conceptoNG">
+                                    <select name="conceptoNG" class="form-control" id="conceptoNG">
+                                        <option value="0">Seleccione una opcion</option>
+                                    </select>
                                     <br>
                                     <h5>Valor Total</h5>
                                     <input type="number" min="50" class="form-control" id="valortNG">
                                     <br>
                                     <h5>Fuente</h5>
-                                    <input type="text" class="form-control" id="FuenteNG">
+                                    <select name="fuenteNG" class="form-control" id="fuenteNG">
+                                        <option value="0" selected="">Seleccione una fuente</option>
+                                    </select>
                                     <br>
                                     <h5>Id de la factura</h5>
-                                    <input type="text" class="form-control" id="idfacturaNG">
+                                    <input type="text" class="form-control" id="idsoporteNG">
                                     <br>
                                     <h5>Soporte</h5>
                                     <input type="file" class="form-control" id="soporteNG">
@@ -121,25 +125,29 @@
                                     <h4 class="modal-title" id="MmyModalLabel">MODIFICAR INGRESO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>ID</h5>
+                                    <h5>Identificador</h5>
                                     <input type="number" class="form-control" id="idOMG">
-                                    <br>
-                                    <h5>fecha:</h5>
-                                    <input type="date" class="form-control" id="fechaMG">
                                     <br>
                                     <button class="btn btn-success" id="buscarMG">Buscar</button>
                                     <br>
+                                    <h5>fecha:</h5>
+                                    <input type="date" class="form-control" id="fechaMG">
+                                    <br>                                  
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaMG">
                                     <br>
                                     <h5>Concepto:</h5>
-                                    <input type="text" class="form-control" id="conceptoMG">
+                                    <select name="conceptoMG" id="conceptoMG" class="form-control">
+                                        <option value="0" selected="">Seleccione una opcion</option>
+                                    </select>
                                     <br>
                                     <h5>Valor total:</h5>
                                     <input type="number" min="50" class="form-control" id="valortMG">
                                     <br>
                                     <h5>Fuente:</h5>
-                                    <input type="number" min="50" class="form-control" id="fuenteMG">
+                                    <select name="fuenteMG" id="fuenteMG" class="form-control">
+                                        <option value="0" selected="">Seleccione una fuente</option>
+                                    </select>
                                     <br>
                                     <h5>Id del Soporte:</h5>
                                     <input type="text" class="form-control" id="idsoporteMG">
@@ -165,10 +173,13 @@
                                     <h4 class="modal-title" id="EmyModalLabel">ELIMINAR GASTO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>ID</h5>
+                                    <h5>Identificador</h5>
                                     <input type="number" class="form-control" id="idOEG">
                                     <br>
                                     <button class="btn btn-success" id="buscarEG">Buscar</button>
+                                    <br>
+                                    <h5>Fecha:</h5>
+                                    <input type="text" class="form-control" id="fechaEG" disabled="">
                                     <br>
                                     <h5>Empresa:</h5>
                                     <input type="text" class="form-control" id="empresaEG" disabled="">
@@ -180,7 +191,7 @@
                                     <input type="text" class="form-control" id="valortEG" disabled="">
                                     <br>
                                     <h5>Fuente:</h5>
-                                    <input type="text" class="form-control" id="valortEG" disabled="">
+                                    <input type="text" class="form-control" id="fuenteEG" disabled="">
                                     <br>
                                     <h5>Id del Soporte:</h5>
                                     <input type="text" class="form-control" id="idsoporteEG">
