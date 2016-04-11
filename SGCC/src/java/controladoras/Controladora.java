@@ -7,7 +7,6 @@ package controladoras;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -145,16 +144,99 @@ public class Controladora extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().write(resultado);
         }
+        else if("modificarIngreso".equals(operacion))
+        {
+            int identificador=Integer.parseInt(request.getParameter("identificador"));
+            String fecha=request.getParameter("fecha");
+            String empresa=request.getParameter("empresa");
+            int concepto=Integer.parseInt(request.getParameter("concepto"));
+            int valorunitario=Integer.parseInt(request.getParameter("valorunitario"));
+            int cantidad=Integer.parseInt(request.getParameter("cantidad"));
+            int valortotal=Integer.parseInt(request.getParameter("valortotal"));
+            int fuente=Integer.parseInt(request.getParameter("fuente"));
+            //Problema con el usuario: Tenemos que saber como son las sesiones en java web para obtener su identificador.
+            int usuario=1;
+            String idsoporte=request.getParameter("idsoporte");
+            String soporte=request.getParameter("soporte");
+            IngresoCRUD CRUD=new IngresoCRUD();
+            String resultado=CRUD.modificarIngreso(identificador,fecha, empresa, concepto, valorunitario, cantidad, valortotal, fuente, idsoporte, soporte, usuario);
+            response.setContentType("text/plain");
+            response.getWriter().write(resultado);
+        }
+        else if("eliminarIngreso".equals(operacion))
+        {
+            int identificador=Integer.parseInt(request.getParameter("identificador"));
+            System.out.println("Entre aqui");
+            IngresoCRUD CRUD=new IngresoCRUD();
+            String resultado=CRUD.eliminarIngreso(identificador);
+            response.setContentType("text/plain");
+            response.getWriter().write(resultado);
+        }
         else if ("leerGastos".equals(operacion))
         {
-            System.out.println(" leer gastos controladora");
             GastoCRUD gasto = new GastoCRUD();
             LinkedList<Gasto> gastos = gasto.leerGastos();
-            System.out.println("leer gastos crud");
             Gson json = new Gson();
             String resultado = json.toJson(gastos);
             response.setContentType("application/json");
             response.getWriter().write(resultado);
+        }
+        else if ("leerConceptosGasto".equals(operacion))
+        {
+            ConceptoCRUD CRUD=new ConceptoCRUD();
+            LinkedList<Concepto>conceptos=CRUD.leerConceptosGasto();
+            Gson json = new Gson();
+            String resultado = json.toJson(conceptos);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if ("nuevoGasto".equals(operacion)) {
+            String fecha = request.getParameter("fecha");
+            String empresa = request.getParameter("empresa");
+            int concepto = Integer.parseInt(request.getParameter("concepto"));
+            int valortotal = Integer.parseInt(request.getParameter("valortotal"));
+            int fuente = Integer.parseInt(request.getParameter("fuente"));
+            int usuario = 1;
+            String idsoporte = request.getParameter("idsoporte");
+            String soporte = request.getParameter("soporte");
+            GastoCRUD gastocrud = new GastoCRUD();
+            String resultado = gastocrud.nuevoGasto(fecha, empresa, concepto, valortotal, fuente, usuario, idsoporte, soporte);
+            response.setContentType("text/plain");
+            response.getWriter().write(resultado);
+        }
+        else if("buscarGasto".equals(operacion))
+        {
+            int identificador=Integer.parseInt(request.getParameter("identificador"));
+            GastoCRUD CRUD=new GastoCRUD();
+            Gasto gasto=CRUD.buscarGasto(identificador);
+            Gson json = new Gson();
+            String resultado = json.toJson(gasto);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("modificarGasto".equals(operacion))
+        {
+            int identificador=Integer.parseInt(request.getParameter("identificador"));
+            String fecha=request.getParameter("fecha");
+            String empresa=request.getParameter("empresa");
+            int concepto=Integer.parseInt(request.getParameter("concepto"));
+            int valortotal=Integer.parseInt(request.getParameter("valortotal"));
+            int fuente=Integer.parseInt(request.getParameter("fuente"));
+            //Problema con el usuario: Tenemos que saber como son las sesiones en java web para obtener su identificador.
+            int usuario=1;
+            String idsoporte=request.getParameter("idsoporte");
+            String soporte=request.getParameter("soporte");
+            GastoCRUD CRUD=new GastoCRUD();
+            String resultado=CRUD.modificarGasto(identificador, fecha, empresa, valortotal, concepto, fuente, usuario);
+            response.setContentType("text/plain");
+            response.getWriter().write(resultado);
+        }
+        else if("eliminarGasto".equals(operacion)){
+            GastoCRUD gasto= new GastoCRUD();
+            int idgasto=Integer.parseInt(request.getParameter("identificador"));
+            String mensaje=gasto.eliminarGasto(idgasto);
+            response.setContentType("text/plain");
+            response.getWriter().write(mensaje);
         }
         c.desconectar();
     }

@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -72,14 +70,11 @@ public class IngresoCRUD {
             Conexion.fop.setInt(4, cantidad);
             Conexion.fop.setInt(5, valorunitario);
             Conexion.fop.setInt(6, valortotal);
-
             Conexion.fop.setInt(7, concepto);
-            System.out.println("La fuente es: " + fuente);
             Conexion.fop.setInt(8, fuente);
             Conexion.fop.setInt(9, usuario);
             Conexion.fop.execute();
             int idingreso = Conexion.fop.getInt(1);
-            System.out.println("id ingreso: " + idingreso);
 
             Conexion.fop = Conexion.conexion.prepareCall("{?=call NUEVO_SOPORTE_INGRESO(?,?,?)}");
             Conexion.fop.registerOutParameter(1, Types.VARCHAR);
@@ -124,7 +119,7 @@ public class IngresoCRUD {
                 String nombrefuente = Conexion.fop.getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
                 Usuario usuario = new Usuario(resultado.getInt("IDUSUARIO"));
-                //Falta obtener soportes del ingreso
+//                Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
                 ingreso = new Ingreso(usuario, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);
             }
@@ -136,28 +131,36 @@ public class IngresoCRUD {
 
     /**
      * @see Falta la modificacion del soporte.
-     * @param ingreso Objeto ingreso que modifica un ingreso de la base de
-     * datos.
+     * @param identificador
+     * @param fecha
+     * @param empresa
+     * @param concepto
+     * @param valorunitario
+     * @param cantidad
+     * @param valortotal
+     * @param fuente
+     * @param idsoporte
+     * @param soporte
+     * @param usuario
      * @return mensaje que indica el exito de la modificacion
      */
-    public String modificarIngreso(Ingreso ingreso) {
+    public String modificarIngreso(int identificador,String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int usuario) {
         try {
             Conexion.fop = Conexion.conexion.prepareCall("{?=call MODIFICAR_INGRESO(?,?,?,?,?,?,?,?,?)}");
             Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, ingreso.getIdentificador());
-            Date sqldate = Date.valueOf(ingreso.getFecha());
+            Conexion.fop.setInt(2, identificador);
+            Date sqldate = Date.valueOf(fecha);
             Conexion.fop.setDate(3, sqldate);
-            Conexion.fop.setString(4, ingreso.getEmpresa());
-            Conexion.fop.setInt(5, ingreso.getCantidad());
-            Conexion.fop.setInt(6, ingreso.getValorunitario());
-            Conexion.fop.setInt(7, ingreso.getValortotal());
-            Conexion.fop.setInt(8, ingreso.getConcepto().getIdentificador());
-            Conexion.fop.setInt(9, ingreso.getFuente().getIdentificador());
-            Conexion.fop.setInt(10, ingreso.getUsuario().getIdentificador());
+            Conexion.fop.setString(4, empresa);
+            Conexion.fop.setInt(5, cantidad);
+            Conexion.fop.setInt(6, valorunitario);
+            Conexion.fop.setInt(7, valortotal);
+            Conexion.fop.setInt(8, concepto);
+            Conexion.fop.setInt(9, fuente);
+            Conexion.fop.setInt(10, usuario);
             Conexion.fop.execute();
             String mensaje = Conexion.fop.getString(1);
             return mensaje;
-
         } catch (SQLException ex) {
             return "No se ha modificado correctamente el ingreso";
         }
@@ -165,18 +168,17 @@ public class IngresoCRUD {
 
     /**
      *
-     * @param ingreso Ingreso a eliminar en la base de datos.
+     * @param identificador
      * @return mensaje indicando la eliminacion del ingreso
      */
-    public String eliminar(Ingreso ingreso) {
+    public String eliminarIngreso(int identificador) {
         try {
-            Conexion.fop = Conexion.conexion.prepareCall("{?=call MODIFICAR_INGRESO(?)}");
+            Conexion.fop = Conexion.conexion.prepareCall("{?=call ELIMINAR_INGRESO(?)}");
             Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, ingreso.getIdentificador());
+            Conexion.fop.setInt(2, identificador);
             Conexion.fop.execute();
             String mensaje = Conexion.fop.getString(1);
             return mensaje;
-
         } catch (SQLException ex) {
             return "No se ha eliminado correctamente el ingreso";
         }

@@ -11,24 +11,33 @@ $(function ()
     $("#eliminarGasto").on("click", eliminarGasto);
     $("#buscarMG").on("click", buscarMG);
     $("#buscarEG").on("click", buscarEG);
-    
+
     $(document).ready(function () {
         leerGastos();
+        leerConceptos();
+        leerFuentes();
     });
 
 
     function leerGastos()
     {
         //Aqui se crean variables y captura informacion
-        var tabla=document.getElementById("tabla");
         $.post("Controladora", {
-            operacion:"leerGastos"
-            //Aqui van los parametros
+            operacion: "leerGastos"
+                    //Aqui van los parametros
         }, function (data) {
             var resultado = data;
-            for (var i=0; resultado.length; i++)
+            var tabla = document.getElementById("tabla");
+            if (tabla.hasChildNodes())
             {
-           
+                while (tabla.childNodes.length >= 1)
+                {
+                    tabla.removeChild(tabla.firstChild);
+                }
+            }
+            for (var i = 0; resultado.length; i++)
+            {
+
                 var tr = document.createElement("tr");
                 var td1 = document.createElement("td");
                 var texto1 = document.createTextNode(resultado[i].identificador);
@@ -69,68 +78,215 @@ $(function ()
     function nuevoGasto()
     {
         //Aqui se crean variables y captura informacion
-        var fecha=document.getElementById("fechaNG").value;
-        var empresa=document.getElementById("empresaNG").value;
-        var concepto=document.getElementById("conceptoNG").value;
-        var valortotal=document.getElementById("valortotalNG").value;
-        var fuente=document.getElementById("fuenteNG").value;
-        var idsoporte=document.getElementById("idsoporteNG").value;
-        var soporte=document.getElementById("soporteNG").value;
+        var fecha = document.getElementById("fechaNG").value;
+        var empresa = document.getElementById("empresaNG").value;
+        var concepto = $('select[name=conceptoNG]').val();
+        var valortotal = document.getElementById("valortNG").value;
+        var fuente = $('select[name=fuenteNG]').val();
+        var idsoporte = document.getElementById("idsoporteNG").value;
+        var soporte = null;
         $.post("Controladora", {
-            oper: "nuevoGasto",
-            fecha:fecha,
+            operacion: "nuevoGasto",
+            fecha: fecha,
             empresa: empresa,
             concepto: concepto,
             valortotal: valortotal,
-            fuente:fuente,
+            fuente: fuente,
             idsoporte: idsoporte,
-            soporte: soporte 
+            soporte: soporte
         }, function (data) {
             var resultado = data;
-            alert(data);
+            alert(resultado);
+            leerGastos();
         });
     }
     function modificarGasto()
     {
         //Aqui se crean variables y captura informacion
+        //Aqui se crean variables y captura informacion
+        var identificador = document.getElementById("idOMG").value;
+        var fecha = document.getElementById("fechaMG").value;
+        var empresa = document.getElementById("empresaMG").value;
+        var concepto = $('select[name=conceptoMG]').val();
+        var valortotal = document.getElementById("valortMG").value;
+        var fuente = $('select[name=fuenteMG]').val();
+        var idsoporte = document.getElementById("idsoporteMG").value;
+        var soporte = null;
         $.post("Controladora", {
             //Aqui van los parametros
+            operacion: "modificarGasto",
+            identificador: identificador,
+            fecha: fecha,
+            empresa: empresa,
+            concepto: concepto,
+            valortotal: valortotal,
+            fuente: fuente,
+            idsoporte: idsoporte,
+            soporte: soporte
         }, function (data) {
             var resultado = data;
-            
+            alert(resultado);
+            leerGastos()();
+        }).fail(function ()
+        {
+            alert("error en la operacion modificarGasto");
         });
     }
 
     function eliminarGasto()
     {
-        //Aqui se crean variables y captura informacion
-        $.post("Servlet", {
-            //Aqui van los parametros
+        var identificador = document.getElementById("idOEG").value;
+        $.post("Controladora", {
+            operacion: "eliminarGasto",
+            identificador : identificador 
         }, function (data) {
             var resultado = data;
-            
+            alert(resultado);
+            leerGastos();
         });
     }
 
     function buscarMG()
     {
         //Aqui se crean variables y captura informacion
-        $.post("Servlet", {
-            //Aqui van los parametros
+
+        var identificador = document.getElementById("idOMG").value;
+        $.post("Controladora", {
+            operacion: "buscarGasto",
+            identificador: identificador
         }, function (data) {
             var resultado = data;
-            
+            document.getElementById("fechaMG").value = resultado.fecha;
+            document.getElementById("empresaMG").value = resultado.empresa;
+            leerConceptosModificar(resultado.concepto.identificador);
+            document.getElementById("valortMG").value = resultado.valortotal;
+            leerFuentesModificar(resultado.fuente.identificador);
+
+        }).fail(function ()
+        {
+            alert("error en la operacion");
         });
     }
     function buscarEG()
     {
         //Aqui se crean variables y captura informacion
-        
-        $.post("Servlet", {
+        var identificador = document.getElementById("idOEG").value;
+        $.post("Controladora", {
             //Aqui van los parametros
+            operacion: "buscarGasto",
+            identificador: identificador
         }, function (data) {
             var resultado = data;
-            
+            var resultado = data;
+            document.getElementById("fechaEG").value = resultado.fecha;
+            document.getElementById("empresaEG").value = resultado.empresa;
+            document.getElementById("conceptoEG").value = resultado.concepto.nombre;
+            document.getElementById("valortEG").value = resultado.valortotal;
+            document.getElementById("fuenteEG").value = resultado.fuente.nombre;
+        });
+    }
+
+    function leerConceptosModificar(seleccionado)
+    {
+        $.post("Controladora", {
+            operacion: "leerConceptosGasto"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("conceptoMG");
+            if (select.hasChildNodes())
+            {
+                while (select.childNodes.length >= 1)
+                {
+                    select.removeChild(select.firstChild);
+                }
+            }
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                if (resultado[i].identificador == seleccionado)
+                {
+                    option.setAttribute("selected", "");
+                }
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerConceptosModificar");
+        });
+    }
+
+    function leerFuentesModificar(seleccionado)
+    {
+        $.post("Controladora", {
+            operacion: "leerFuentes"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("fuenteMG");
+            if (select.hasChildNodes())
+            {
+                while (select.childNodes.length >= 1)
+                {
+                    select.removeChild(select.firstChild);
+                }
+            }
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                if (seleccionado == resultado[i].identificador)
+                {
+                    option.setAttribute("selected", "");
+                }
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerFuentes");
+        });
+    }
+
+    function leerConceptos()
+    {
+        $.post("Controladora", {
+            operacion: "leerConceptosGasto"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("conceptoNG");
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerConceptos");
+        });
+    }
+
+    function leerFuentes()
+    {
+        $.post("Controladora", {
+            operacion: "leerFuentes"
+        }, function (data) {
+            var resultado = data;
+            var select = document.getElementById("fuenteNG");
+            for (var i = 0; i < resultado.length; i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value", resultado[i].identificador);
+                option.innerHTML = resultado[i].nombre;
+                select.appendChild(option);
+            }
+
+        }).fail(function ()
+        {
+            alert("Error en la operacion leerFuentes");
         });
     }
 });
