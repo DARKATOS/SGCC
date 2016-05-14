@@ -51,6 +51,7 @@
                         <li><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
                         <li class="active"><a href="gestionIngresos.jsp">Ingresos</a></li>
                         <li><a href="gestionGastos.jsp">Gastos</a></li>
+                        <li><a href="gestionNomina.jsp">Nomina</a></li>
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">

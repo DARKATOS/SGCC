@@ -1,6 +1,6 @@
 <%-- 
-    Document   : gestionGastos
-    Created on : 18/03/2016, 09:16:14 AM
+    Document   : administracionUsuarios
+    Created on : 18/03/2016, 09:22:54 AM
     Author     : Jorge Alejandro
 --%>
 
@@ -18,8 +18,8 @@
         <script type="text/javascript" src="intermedios/holder.min.js"></script>
         <script type="text/javascript" src="intermedios/ie-emulation-modes-warning.js"></script>
         <script type="text/javascript" src="intermedios/ie10-viewport-bug-workaround.js"></script>
-        <script type="text/javascript" src="intermediospropios/jsGestionGastos.js"></script>
-        <title>Gestion de Gastos</title>
+        <script type="text/javascript" src="intermediospropios/jsAdministracionEmpleados.js"></script>
+        <title>Administracion de usuarios</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -54,7 +54,7 @@
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href="administracionUsuarios.jsp">Usuarios</a></li>
+                        <li><a href="administracionEmpleados.jsp">Empleados</a></li>
                         <!--<li><a href="">Nav item again</a></li>
                         <li><a href="">One more nav</a></li>
                         <li><a href="">Another nav item</a></li>
@@ -67,163 +67,141 @@
                     </ul>-->
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Gestion de Gastos</h1>
+                    <h1 class="page-header">Administracion de usuarios</h1>
 
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NGModal">Nuevo Gasto »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#MGModal">Modificar Gasto »</a>
-                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#EGModal">Eliminar Gasto »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#NEModal">Nuevo Empleado »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#MEModal">Modificar Empleado »</a>
+                    <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#EEModal">Eliminar Empleado »</a>
                     <br>
 
                     <!-- Modal INSERTAR -->
-                    <div class="modal fade" id="NGModal" tabindex="-1" role="dialog" aria-labelledby="ImyModalLabel">
+                    <div class="modal fade" id="NEModal" tabindex="-1" role="dialog" aria-labelledby="ImyModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="ImyModalLabel">CREAR NUEVO GASTO</h4>
+                                    <h4 class="modal-title" id="ImyModalLabel">CREAR NUEVO EMPLEADO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>Fecha</h5>
-                                    <input type="date" class="form-control" id="fechaNG">
+                                    <h5>Nombre</h5>
+                                    <input type="text" class="form-control" id="nombreNE" required="">
                                     <br>     
-                                    <h5>Empresa:</h5>
-                                    <input type="text" class="form-control" id="empresaNG">
+                                    <h5>Cedula:</h5>
+                                    <input type="text" class="form-control" id="cedulaNE" required="">
                                     <br>
-                                    <h5>Concepto:</h5>
-                                    <select name="conceptoNG" class="form-control" id="conceptoNG">
-                                        <option value="0">Seleccione una opcion</option>
-                                    </select>
+                                    <h5>Correo:</h5>
+                                    <input type="email" class="form-control" id="correoNE" required="">
                                     <br>
-                                    <h5>Valor Total</h5>
-                                    <input type="number" min="50" class="form-control" id="valortNG">
+                                    <h5>Cargo:</h5>
+                                    <input type="text" class="form-control" id="cargoNE">
                                     <br>
-                                    <h5>Fuente</h5>
-                                    <select name="fuenteNG" class="form-control" id="fuenteNG">
-                                        <option value="0" selected="">Seleccione una fuente</option>
-                                    </select>
+                                    <h5>Salario Basico:</h5>
+                                    <input type="number" min="100" class="form-control" id="salarioNE" required="">
                                     <br>
-                                    <h5>Id de la factura</h5>
-                                    <input type="text" class="form-control" id="idsoporteNG">
-                                    <br>
-                                    <h5>Soporte</h5>
-                                    <input type="file" class="form-control" id="soporteNG">
+                                    <h5>Contraseña:</h5>
+                                    <input type="password" class="form-control" id="contrasenaNE" required="">
                                     <br>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="nuevoGasto">Guardar</button>
+                                    <button type="button" class="btn btn-primary" id="nuevoEmpleado">Guardar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal MODIFICAR -->
-                    <div class="modal fade" id="MGModal" tabindex="-1" role="dialog" aria-labelledby="MmyModalLabel">
+                    <div class="modal fade" id="MEModal" tabindex="-1" role="dialog" aria-labelledby="MmyModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="MmyModalLabel">MODIFICAR INGRESO</h4>
+                                    <h4 class="modal-title" id="MmyModalLabel">MODIFICAR EMPLEADO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>Identificador</h5>
-                                    <input type="number" class="form-control" id="idOMG">
-                                    <br>
-                                    <button class="btn btn-success" id="buscarMG">Buscar</button>
-                                    <br>
-                                    <h5>fecha:</h5>
-                                    <input type="date" class="form-control" id="fechaMG">
-                                    <br>                                  
-                                    <h5>Empresa:</h5>
-                                    <input type="text" class="form-control" id="empresaMG">
-                                    <br>
-                                    <h5>Concepto:</h5>
-                                    <select name="conceptoMG" id="conceptoMG" class="form-control">
+                                    <h5>Cedula:</h5>
+                                    <select name="cedulaME" id="cedulaME" class="form-control">
                                         <option value="0" selected="">Seleccione una opcion</option>
                                     </select>
                                     <br>
-                                    <h5>Valor total:</h5>
-                                    <input type="number" min="50" class="form-control" id="valortMG">
+                                    <button class="btn btn-success" id="buscarME">Buscar</button>
                                     <br>
-                                    <h5>Fuente:</h5>
-                                    <select name="fuenteMG" id="fuenteMG" class="form-control">
-                                        <option value="0" selected="">Seleccione una fuente</option>
-                                    </select>
+                                    <h5>Nombre:</h5>
+                                    <input type="text" class="form-control" id="nombreME" required="">
+                                    <br>                                  
+                                    <h5>Correo:</h5>
+                                    <input type="email" class="form-control" id="correoME" required="">
                                     <br>
-                                    <h5>Id del Soporte:</h5>
-                                    <input type="text" class="form-control" id="idsoporteMG">
+                                    <h5>Cargo:</h5>
+                                    <input type="text" class="form-control" id="cargoME">
                                     <br>
-                                    <h5>Soporte para modificar:</h5>
-                                    <input type="file" class="form-control" id="soporteMG">
+                                    <h5>Salario Basico:</h5>
+                                    <input type="number" min="100" class="form-control" id="salarioME">
+                                    <br>
+                                    <h5>Contraseña:</h5>
+                                    <input type="password" class="form-control" id="contrasenaME">
                                     <br>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="modificarGasto">Guardar</button>
+                                    <button type="button" class="btn btn-primary" id="modificarEmpleado">Guardar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal ELIMINAR -->
-                    <div class="modal fade" id="EGModal" tabindex="-1" role="dialog" aria-labelledby="EmyModalLabel">
+                    <div class="modal fade" id="EEModal" tabindex="-1" role="dialog" aria-labelledby="EmyModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="EmyModalLabel">ELIMINAR GASTO</h4>
+                                    <h4 class="modal-title" id="EmyModalLabel">ELIMINAR EMPLEADO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5>Identificador</h5>
-                                    <input type="number" class="form-control" id="idOEG">
+                                    <h5>Cedula</h5>
+                                    <select name="cedulaEE" id="cedulaEE" class="form-control">
+                                        <option value="0" selected="">Seleccione una opcion</option>
+                                    </select>
                                     <br>
-                                    <button class="btn btn-success" id="buscarEG">Buscar</button>
+                                    <button class="btn btn-success" id="buscarEE">Buscar</button>
                                     <br>
-                                    <h5>Fecha:</h5>
-                                    <input type="text" class="form-control" id="fechaEG" disabled="">
+                                    <h5>Nombre:</h5>
+                                    <input type="text" class="form-control" id="nombreEE" disabled="">
                                     <br>
-                                    <h5>Empresa:</h5>
-                                    <input type="text" class="form-control" id="empresaEG" disabled="">
+                                    <h5>Correo:</h5>
+                                    <input type="text" class="form-control" id="correoEE" disabled="">
                                     <br>
-                                    <h5>Concepto:</h5>
-                                    <input type="text" class="form-control" id="conceptoEG" disabled="">
+                                    <h5>Cargo:</h5>
+                                    <input type="text" class="form-control" id="cargoEE" disabled="">
                                     <br>
-                                    <h5>Valor Total:</h5>
-                                    <input type="text" class="form-control" id="valortEG" disabled="">
-                                    <br>
-                                    <h5>Fuente:</h5>
-                                    <input type="text" class="form-control" id="fuenteEG" disabled="">
-                                    <br>
-                                    <h5>Id del Soporte:</h5>
-                                    <input type="text" class="form-control" id="idsoporteEG">
-                                    <br>
-                                    <h5>Soporte para eliminación:</h5>
-                                    <input type="file" class="form-control" id="soporteEG">
+                                    <h5>Salario Basico:</h5>
+                                    <input type="text" class="form-control" id="salarioEE" disabled="">
                                     <br>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="eliminarGasto">Eliminar</button>
+                                    <button type="button" class="btn btn-primary" id="eliminarEmpleado">Eliminar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <h2 class="sub-header">Tabla de Gastos</h2>
+                    <h2 class="sub-header">Tabla de Empleados</h2>
                     <div class="table-responsive">
-                        <table class="table table-striped" id="leerIngresos">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Identificador</th>
-                                    <th>Fecha</th>
-                                    <th>Empresa</th>
-                                    <th>Concepto</th>
-                                    <th>Valor Total</th>
-                                    <th>Fuente</th>
+                                    <th>Nombre</th>
+                                    <th>Cedula</th>
+                                    <th>Correo</th>
+                                    <th>Cargo</th>
+                                    <th>Salario Basico</th>
                                 </tr>
                             </thead>
                             <tbody id="tabla">
-                                
+
                             </tbody>
                         </table>
                     </div>

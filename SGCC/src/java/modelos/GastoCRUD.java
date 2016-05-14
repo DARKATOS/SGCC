@@ -46,9 +46,9 @@ public class GastoCRUD {
                 Conexion.fop.execute();
                 String nombrefuente = Conexion.fop.getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Usuario usuario = new Usuario(resultado.getInt("IDUSUARIO"));
+                Empleado empleado = new Empleado(resultado.getInt("IDEMPLEADO"));
                 //LinkedList<Soporte> soportes = soportesDeIngreso(identificador);
-                Gasto gasto = new Gasto(usuario, identificador, fecha, empresa, concepto, valortotal, fuente, null);
+                Gasto gasto = new Gasto(empleado, identificador, fecha, empresa, concepto, valortotal, fuente, null);
                 gastos.add(gasto);
             }
             return gastos;
@@ -111,7 +111,7 @@ public class GastoCRUD {
                 Conexion.fop.execute();
                 String nombrefuente = Conexion.fop.getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Usuario usuario = new Usuario(resultado.getInt("IDUSUARIO"));
+                Empleado usuario = new Empleado(resultado.getInt("IDUSUARIO"));
 //                Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
                 gasto = new Gasto(usuario, identificador, fecha, empresa, concepto, valortotal, fuente, null);
