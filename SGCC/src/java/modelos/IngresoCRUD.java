@@ -47,7 +47,7 @@ public class IngresoCRUD {
                 Conexion.fop.execute();
                 String nombrefuente = Conexion.fop.getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Usuario usuario = new Usuario(resultado.getInt("IDUSUARIO"));
+                Empleado usuario = new Empleado(resultado.getInt("IDUSUARIO"));
                 //Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
 
@@ -118,7 +118,7 @@ public class IngresoCRUD {
                 Conexion.fop.execute();
                 String nombrefuente = Conexion.fop.getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Usuario usuario = new Usuario(resultado.getInt("IDUSUARIO"));
+                Empleado usuario = new Empleado(resultado.getInt("IDUSUARIO"));
 //                Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
                 ingreso = new Ingreso(usuario, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);

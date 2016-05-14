@@ -23,8 +23,8 @@ import modelos.Gasto;
 import modelos.GastoCRUD;
 import modelos.Ingreso;
 import modelos.IngresoCRUD;
-import modelos.Usuario;
-import modelos.UsuarioCRUD;
+import modelos.Empleado;
+import modelos.EmpleadoCRUD;
 
 /**
  *
@@ -95,14 +95,14 @@ public class Controladora extends HttpServlet {
             String cedula, contrasena;
             cedula = request.getParameter("cedula");
             contrasena = request.getParameter("contrasena");
-            UsuarioCRUD CRUD = new UsuarioCRUD();
-            Usuario usuario = CRUD.inicarSesion(cedula, contrasena);
-            if (usuario != null && sesion.getAttribute("usuario") == null) {
-                sesion.setAttribute("identificador", usuario.getIdentificador());
-                sesion.setAttribute("usuario", usuario.getNombre());
-                sesion.setAttribute("cedula", usuario.getCedula());
-                sesion.setAttribute("cargo", usuario.getCargo());
-                sesion.setAttribute("correo", usuario.getCorreo());
+            EmpleadoCRUD CRUD = new EmpleadoCRUD();
+            Empleado empelado = CRUD.inicarSesion(cedula, contrasena);
+            if (empelado != null && sesion.getAttribute("usuario") == null) {
+                sesion.setAttribute("identificador", empelado.getIdentificador());
+                sesion.setAttribute("usuario", empelado.getNombre());
+                sesion.setAttribute("cedula", empelado.getCedula());
+                sesion.setAttribute("cargo", empelado.getCargo());
+                sesion.setAttribute("correo", empelado.getCorreo());
                 //redirijo a página con información de login exitoso
                 response.sendRedirect("principal.jsp");
             } 
@@ -235,6 +235,7 @@ public class Controladora extends HttpServlet {
             response.setContentType("text/plain");
             response.getWriter().write(mensaje);
         }
+        
         c.desconectar();
     }
     /**

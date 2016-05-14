@@ -9,31 +9,44 @@ package modelos;
  *
  * @author Jorge Alejandro
  */
-public class Usuario {
+public class Empleado {
     private int identificador;
     private String nombre;
     private String cedula;
     private String correo;
     private String cargo;
+    private int salarioBasico;
     private String contrasena;
 
-    public Usuario(int identificador) {
+    public Empleado(String cedula) {
+        this.identificador=-1;
+        this.nombre=null;
+        this.cedula=cedula;
+        this.correo=null;
+        this.cargo=null;
+        this.salarioBasico=-1;
+        this.contrasena=null;
+    }
+    
+    public Empleado(int identificador) {
         this.identificador=identificador;
         this.nombre=null;
         this.cedula=null;
         this.correo=null;
         this.cargo=null;
+        this.salarioBasico=-1;
         this.contrasena=null;
     }
     
     
 
-    public Usuario(int identificador, String nombre, String cedula, String correo, String cargo, String contrasena) {
+    public Empleado(int identificador, String nombre, String cedula, String correo, String cargo, int salarioBasico, String contrasena) {
         this.identificador = identificador;
         this.nombre = nombre;
         this.cedula = cedula;
         this.correo = correo;
         this.cargo = cargo;
+        this.salarioBasico=salarioBasico;
         this.contrasena = contrasena;
     }
 
@@ -99,6 +112,14 @@ public class Usuario {
      */
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    public int getSalarioBasico() {
+        return salarioBasico;
+    }
+
+    public void setSalarioBasico(int salarioBasico) {
+        this.salarioBasico = salarioBasico;
     }
 
     public String getContrasena() {

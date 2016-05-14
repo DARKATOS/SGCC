@@ -14,7 +14,7 @@ import java.util.LinkedList;
  */
 public class Ingreso {
 
-    private Usuario usuario;
+    private Empleado usuario;
     private int identificador;
     private String fecha;
     private String empresa;
@@ -25,7 +25,7 @@ public class Ingreso {
     private Fuente fuente;
     private LinkedList<Soporte> soportes;
 
-    public Ingreso(Usuario usuario, String fecha, int identificador, String empresa, Concepto concepto, int cantidad, int valorunitario, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
+    public Ingreso(Empleado usuario, String fecha, int identificador, String empresa, Concepto concepto, int cantidad, int valorunitario, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
         this.usuario = usuario;
         this.identificador = identificador;
         this.fecha=fecha;
@@ -41,7 +41,7 @@ public class Ingreso {
     /**
      * @return the usuario
      */
-    public Usuario getUsuario() {
+    public Empleado getUsuario() {
         return usuario;
     }
 

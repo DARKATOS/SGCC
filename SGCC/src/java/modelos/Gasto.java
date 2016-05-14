@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class Gasto {
 
-    private Usuario usuario;
+    private Empleado usuario;
     private int identificador;
     private String fecha;
     private String empresa;
@@ -22,7 +22,7 @@ public class Gasto {
     private Fuente fuente;
     private LinkedList<Soporte> soportes;
 
-    public Gasto(Usuario usuario, int identificador, String fecha, String empresa, Concepto concepto, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
+    public Gasto(Empleado usuario, int identificador, String fecha, String empresa, Concepto concepto, int valortotal, Fuente fuente, LinkedList<Soporte> soportes) {
         this.usuario = usuario;
         this.identificador = identificador;
         this.fecha = fecha;
@@ -38,14 +38,14 @@ public class Gasto {
     /**
      * @return the usuario
      */
-    public Usuario getUsuario() {
+    public Empleado getUsuario() {
         return usuario;
     }
 
     /**
      * @param usuario the usuario to set
      */
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Empleado usuario) {
         this.usuario = usuario;
     }
 
