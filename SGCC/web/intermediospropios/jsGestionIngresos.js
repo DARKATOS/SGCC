@@ -28,7 +28,7 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
 
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "leerIngresos"
         }, function (data) {
             var resultado = data;
@@ -40,7 +40,7 @@ $(function ()
                     tabla.removeChild(tabla.firstChild);
                 }
             }
-            for (var i = 0; resultado.length; i++)
+            for (var i = 0; i<resultado.length; i++)
             {
                 var tr = document.createElement("tr");
                 var td1 = document.createElement("td");
@@ -94,7 +94,7 @@ $(function ()
         var fuente = $('select[name=fuenteNI]').val();
         var idsoporte = document.getElementById("idsoporteNI").value;
         var soporte = null;
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "nuevoIngreso",
             fecha: fecha,
             empresa: empresa,
@@ -128,7 +128,7 @@ $(function ()
         var fuente = $('select[name=fuenteMI]').val();
         var idsoporte = document.getElementById("idsoporteMI").value;
         var soporte = null;
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             //Aqui van los parametros
             operacion: "modificarIngreso",
             identificador: identificador,
@@ -154,7 +154,7 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
         var identificador = document.getElementById("idOMI").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "buscarIngreso",
             identificador: identificador
         }, function (data) {
@@ -176,7 +176,7 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
         var identificador = document.getElementById("idOEI").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             //Aqui van los parametros
             operacion: "buscarIngreso",
             identificador: identificador
@@ -197,7 +197,7 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
         var identificador=document.getElementById("idOEI").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             //Aqui van los parametros
             operacion:"eliminarIngreso",
             identificador:identificador
@@ -210,7 +210,7 @@ $(function ()
 
     function leerConceptos()
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "leerConceptosIngreso"
         }, function (data) {
             var resultado = data;
@@ -230,7 +230,7 @@ $(function ()
 
     function leerConceptosModificar(seleccionado)
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "leerConceptosIngreso"
         }, function (data) {
             var resultado = data;
@@ -261,7 +261,7 @@ $(function ()
 
     function leerFuentesModificar(seleccionado)
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "leerFuentes"
         }, function (data) {
             var resultado = data;
@@ -293,7 +293,7 @@ $(function ()
 
     function leerFuentes()
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionIngresos", {
             operacion: "leerFuentes"
         }, function (data) {
             var resultado = data;

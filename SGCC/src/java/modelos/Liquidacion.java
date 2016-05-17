@@ -5,6 +5,8 @@
  */
 package modelos;
 
+import otrosModelos.HorasExtra;
+import otrosModelos.Deduccion;
 import java.util.LinkedList;
 
 /**
@@ -16,22 +18,52 @@ public class Liquidacion {
     private String fecha;
     private int comisiones;
     private int auxilioTransporte;
+    private int valorHoraExtra;
+    private int numeroHorasExtra;
+    private int totalHorasExtra;
     private int salud;
     private int pension;
     private int salarioNeto;
-    private LinkedList<HorasExtra>horasExtras;
-    private LinkedList<Deduccion>deducciones;
+    private Empleado empleado;
 
-    public Liquidacion(int identificador, String fecha, int comisiones, int auxilioTransporte, int salud, int pension, int salarioNeto, LinkedList<HorasExtra> horasExtras, LinkedList<Deduccion> deducciones) {
+    public Liquidacion(int identificador, String fecha, int comisiones, int auxilioTransporte, int valorHoraExtra, int numeroHorasExtra, int totalHorasExtra, int salud, int pension, int salarioNeto, Empleado empleado) {
         this.identificador = identificador;
         this.fecha = fecha;
         this.comisiones = comisiones;
         this.auxilioTransporte = auxilioTransporte;
+        this.valorHoraExtra = valorHoraExtra;
+        this.numeroHorasExtra = numeroHorasExtra;
+        this.totalHorasExtra = totalHorasExtra;
         this.salud = salud;
         this.pension = pension;
         this.salarioNeto = salarioNeto;
-        this.horasExtras = horasExtras;
-        this.deducciones = deducciones;
+        this.empleado = empleado;
+    }
+
+    public Liquidacion(int identificador, String fecha, Empleado empleado) {
+        this.identificador = identificador;
+        this.fecha = fecha;
+        this.comisiones = -1;
+        this.auxilioTransporte = -1;
+        this.valorHoraExtra = -1;
+        this.numeroHorasExtra = -1;
+        this.totalHorasExtra = -1;
+        this.salud = -1;
+        this.pension = -1;
+        this.salarioNeto = -1;
+        this.empleado = empleado;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public int getNumeroHorasExtra() {
+        return numeroHorasExtra;
+    }
+
+    public int getValorHoraExtra() {
+        return valorHoraExtra;
     }
 
     public int getAuxilioTransporte() {

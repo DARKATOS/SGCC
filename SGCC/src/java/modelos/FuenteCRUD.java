@@ -19,15 +19,17 @@ public class FuenteCRUD {
     }
     public LinkedList<Fuente> leerFuentes()
     {
+        Conexion conexion=new Conexion();
         try {
             LinkedList<Fuente>fuentes=new LinkedList<>();
-            Conexion.fop=Conexion.conexion.prepareCall("call LEER_FUENTES()");
-            ResultSet resultado=Conexion.fop.executeQuery();
+            conexion.setFop(conexion.getConexion().prepareCall("call LEER_FUENTES()"));
+            ResultSet resultado=conexion.getFop().executeQuery();
             while(resultado.next())
             {
                 Fuente fuente=new Fuente(resultado.getInt("IDENTIFICADOR"), resultado.getString("NOMBRE"));
                 fuentes.add(fuente);
             }
+            conexion.desconectar();
             return fuentes;
         } catch (SQLException ex) {
             return null;

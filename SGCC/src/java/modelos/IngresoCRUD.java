@@ -21,110 +21,119 @@ import java.util.LinkedList;
 public class IngresoCRUD {
 
     public LinkedList<Ingreso> leerIngresos() {
+        Conexion conexion=new Conexion();
         try {
             LinkedList<Ingreso> ingresos = new LinkedList<>();
-            Conexion.fop = Conexion.conexion.prepareCall("call LEER_INGRESOS()");
-            ResultSet resultado = Conexion.fop.executeQuery();
+            conexion.setFop(conexion.getConexion().prepareCall("call LEER_INGRESOS()"));
+            ResultSet resultado = conexion.getFop().executeQuery();
             while (resultado.next()) {
                 int identificador = resultado.getInt("IDENTIFICADOR");
                 String fecha = resultado.getDate("FECHA").toString();
                 String empresa = resultado.getString("EMPRESA");
                 int idconcepto = resultado.getInt("IDCONCEPTO");
-                Conexion.fop = Conexion.conexion.prepareCall("{?=call NOMBRE_CONCEPTO_INGRESO(?)}");
-                Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-                Conexion.fop.setInt(2, idconcepto);
-                Conexion.fop.execute();
-                String nombreconcepto = Conexion.fop.getString(1);
+                conexion.setFop(conexion.getConexion().prepareCall("{?=call NOMBRE_CONCEPTO_INGRESO(?)}"));
+                conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+                conexion.getFop().setInt(2, idconcepto);
+                conexion.getFop().execute();
+                String nombreconcepto = conexion.getFop().getString(1);
                 Concepto concepto = new Concepto(idconcepto, nombreconcepto);
 
                 int cantidad = resultado.getInt("CANTIDAD");
                 int valorunitario = resultado.getInt("VALORUNITARIO");
                 int valortotal = resultado.getInt("VALORTOTAL");
                 int idfuente = resultado.getInt("IDFUENTE");
-                Conexion.fop = Conexion.conexion.prepareCall("{?=call NOMBRE_FUENTE(?)}");
-                Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-                Conexion.fop.setInt(2, idfuente);
-                Conexion.fop.execute();
-                String nombrefuente = Conexion.fop.getString(1);
+                conexion.setFop(conexion.getConexion().prepareCall("{?=call NOMBRE_FUENTE(?)}"));
+                conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+                conexion.getFop().setInt(2, idfuente);
+                conexion.getFop().execute();
+                String nombrefuente = conexion.getFop().getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Empleado usuario = new Empleado(resultado.getInt("IDUSUARIO"));
+                Empleado empleado = new Empleado(resultado.getInt("IDEMPLEADO"));
                 //Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
 
-                Ingreso ingreso = new Ingreso(usuario, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);
+                Ingreso ingreso = new Ingreso(empleado, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);
                 ingresos.add(ingreso);
             }
+            conexion.desconectar();
             return ingresos;
         } catch (SQLException ex) {
+            conexion.desconectar();
             return null;
         }
     }
 
-    public String nuevoIngreso(String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int usuario) {
+    public String nuevoIngreso(String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int idempleado) {
+        Conexion conexion=new Conexion();
         try {
-            Conexion.fop = Conexion.conexion.prepareCall("{?=call NUEVO_INGRESO(?,?,?,?,?,?,?,?)}");
-            Conexion.fop.registerOutParameter(1, Types.INTEGER);
+            conexion.setFop(conexion.getConexion().prepareCall("{?=call NUEVO_INGRESO(?,?,?,?,?,?,?,?)}"));
+            conexion.getFop().registerOutParameter(1, Types.INTEGER);
             Date sqlfecha = Date.valueOf(fecha);
-            Conexion.fop.setDate(2, sqlfecha);
-            Conexion.fop.setString(3, empresa);
-            Conexion.fop.setInt(4, cantidad);
-            Conexion.fop.setInt(5, valorunitario);
-            Conexion.fop.setInt(6, valortotal);
-            Conexion.fop.setInt(7, concepto);
-            Conexion.fop.setInt(8, fuente);
-            Conexion.fop.setInt(9, usuario);
-            Conexion.fop.execute();
-            int idingreso = Conexion.fop.getInt(1);
+            conexion.getFop().setDate(2, sqlfecha);
+            conexion.getFop().setString(3, empresa);
+            conexion.getFop().setInt(4, cantidad);
+            conexion.getFop().setInt(5, valorunitario);
+            conexion.getFop().setInt(6, valortotal);
+            conexion.getFop().setInt(7, concepto);
+            conexion.getFop().setInt(8, fuente);
+            conexion.getFop().setInt(9, idempleado);
+            conexion.getFop().execute();
+            int idingreso = conexion.getFop().getInt(1);
 
-            Conexion.fop = Conexion.conexion.prepareCall("{?=call NUEVO_SOPORTE_INGRESO(?,?,?)}");
-            Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, idingreso);
-            Conexion.fop.setString(3, idsoporte);
+            conexion.setFop(conexion.getConexion().prepareCall("{?=call NUEVO_SOPORTE_INGRESO(?,?,?)}"));
+            conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+            conexion.getFop().setInt(2, idingreso);
+            conexion.getFop().setString(3, idsoporte);
             //Problemas con el soporte: Hay que convertir la ruta en archivo de imagen y luego en un blob
             Blob sqlsoporte = null;
-            Conexion.fop.setBlob(4, sqlsoporte);
-            Conexion.fop.execute();
-            String mensaje = Conexion.fop.getString(1);
+            conexion.getFop().setBlob(4, sqlsoporte);
+            conexion.getFop().execute();
+            String mensaje = conexion.getFop().getString(1);
+            conexion.desconectar();
             return mensaje;
         } catch (SQLException ex) {
+            conexion.desconectar();
             return "Error en el nuevo ingreso" + ex.getMessage();
         }
     }
 
     public Ingreso buscarIngreso(int identificador) {
+        Conexion conexion=new Conexion();
         try {
             Ingreso ingreso = null;
-            Conexion.fop = Conexion.conexion.prepareCall("call BUSCAR_INGRESO(?)");
-            Conexion.fop.setInt(1, identificador);
-            ResultSet resultado = Conexion.fop.executeQuery();
+            conexion.setFop(conexion.getConexion().prepareCall("call BUSCAR_INGRESO(?)"));
+            conexion.getFop().setInt(1, identificador);
+            ResultSet resultado = conexion.getFop().executeQuery();
             while (resultado.next()) {
                 String fecha = resultado.getDate("FECHA").toString();
                 String empresa = resultado.getString("EMPRESA");
                 int idconcepto = resultado.getInt("IDCONCEPTO");
-                Conexion.fop = Conexion.conexion.prepareCall("{?=call NOMBRE_CONCEPTO_INGRESO(?)}");
-                Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-                Conexion.fop.setInt(2, idconcepto);
-                Conexion.fop.execute();
-                String nombreconcepto = Conexion.fop.getString(1);
+                conexion.setFop(conexion.getConexion().prepareCall("{?=call NOMBRE_CONCEPTO_INGRESO(?)}"));
+                conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+                conexion.getFop().setInt(2, idconcepto);
+                conexion.getFop().execute();
+                String nombreconcepto = conexion.getFop().getString(1);
                 Concepto concepto = new Concepto(idconcepto, nombreconcepto);
 
                 int cantidad = resultado.getInt("CANTIDAD");
                 int valorunitario = resultado.getInt("VALORUNITARIO");
                 int valortotal = resultado.getInt("VALORTOTAL");
                 int idfuente = resultado.getInt("IDFUENTE");
-                Conexion.fop = Conexion.conexion.prepareCall("{?=call NOMBRE_FUENTE(?)}");
-                Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-                Conexion.fop.setInt(2, idfuente);
-                Conexion.fop.execute();
-                String nombrefuente = Conexion.fop.getString(1);
+                conexion.setFop(conexion.getConexion().prepareCall("{?=call NOMBRE_FUENTE(?)}"));
+                conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+                conexion.getFop().setInt(2, idfuente);
+                conexion.getFop().execute();
+                String nombrefuente = conexion.getFop().getString(1);
                 Fuente fuente = new Fuente(idfuente, nombrefuente);
-                Empleado usuario = new Empleado(resultado.getInt("IDUSUARIO"));
+                Empleado empleado = new Empleado(resultado.getInt("IDEMPLEADO"));
 //                Falta obtener soportes del ingreso
 //                LinkedList<Soporte> soportes=soportesDeIngreso(identificador);
-                ingreso = new Ingreso(usuario, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);
+                ingreso = new Ingreso(empleado, fecha, identificador, empresa, concepto, cantidad, valorunitario, valortotal, fuente, null);
             }
+            conexion.desconectar();
             return ingreso;
         } catch (SQLException ex) {
+            conexion.desconectar();
             return null;
         }
     }
@@ -141,27 +150,30 @@ public class IngresoCRUD {
      * @param fuente
      * @param idsoporte
      * @param soporte
-     * @param usuario
+     * @param idempleado
      * @return mensaje que indica el exito de la modificacion
      */
-    public String modificarIngreso(int identificador,String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int usuario) {
+    public String modificarIngreso(int identificador,String fecha, String empresa, int concepto, int valorunitario, int cantidad, int valortotal, int fuente, String idsoporte, String soporte, int idempleado) {
+        Conexion conexion=new Conexion();
         try {
-            Conexion.fop = Conexion.conexion.prepareCall("{?=call MODIFICAR_INGRESO(?,?,?,?,?,?,?,?,?)}");
-            Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, identificador);
+            conexion.setFop(conexion.getConexion().prepareCall("{?=call MODIFICAR_INGRESO(?,?,?,?,?,?,?,?,?)}"));
+            conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+            conexion.getFop().setInt(2, identificador);
             Date sqldate = Date.valueOf(fecha);
-            Conexion.fop.setDate(3, sqldate);
-            Conexion.fop.setString(4, empresa);
-            Conexion.fop.setInt(5, cantidad);
-            Conexion.fop.setInt(6, valorunitario);
-            Conexion.fop.setInt(7, valortotal);
-            Conexion.fop.setInt(8, concepto);
-            Conexion.fop.setInt(9, fuente);
-            Conexion.fop.setInt(10, usuario);
-            Conexion.fop.execute();
-            String mensaje = Conexion.fop.getString(1);
+            conexion.getFop().setDate(3, sqldate);
+            conexion.getFop().setString(4, empresa);
+            conexion.getFop().setInt(5, cantidad);
+            conexion.getFop().setInt(6, valorunitario);
+            conexion.getFop().setInt(7, valortotal);
+            conexion.getFop().setInt(8, concepto);
+            conexion.getFop().setInt(9, fuente);
+            conexion.getFop().setInt(10, idempleado);
+            conexion.getFop().execute();
+            String mensaje = conexion.getFop().getString(1);
+            conexion.desconectar();
             return mensaje;
         } catch (SQLException ex) {
+            conexion.desconectar();
             return "No se ha modificado correctamente el ingreso";
         }
     }
@@ -172,14 +184,17 @@ public class IngresoCRUD {
      * @return mensaje indicando la eliminacion del ingreso
      */
     public String eliminarIngreso(int identificador) {
+        Conexion conexion=new Conexion();
         try {
-            Conexion.fop = Conexion.conexion.prepareCall("{?=call ELIMINAR_INGRESO(?)}");
-            Conexion.fop.registerOutParameter(1, Types.VARCHAR);
-            Conexion.fop.setInt(2, identificador);
-            Conexion.fop.execute();
-            String mensaje = Conexion.fop.getString(1);
+            conexion.setFop(conexion.getConexion().prepareCall("{?=call ELIMINAR_INGRESO(?)}"));
+            conexion.getFop().registerOutParameter(1, Types.VARCHAR);
+            conexion.getFop().setInt(2, identificador);
+            conexion.getFop().execute();
+            String mensaje = conexion.getFop().getString(1);
+            conexion.desconectar();
             return mensaje;
         } catch (SQLException ex) {
+            conexion.desconectar();
             return "No se ha eliminado correctamente el ingreso";
         }
     }
@@ -191,24 +206,24 @@ public class IngresoCRUD {
      * @return un LinkedList<Soporte> Una lista de los soportes que tiene el
      * ingreso.
      */
-    private LinkedList<Soporte> soportesDeIngreso(int idingreso) {
-        LinkedList<Soporte> soportes = new LinkedList<>();
-        try {
-            Conexion.fop = Conexion.conexion.prepareCall("call LEER_SOPORTES_INGRESO(?)");
-            Conexion.fop.setInt(1, idingreso);
-            ResultSet resultado = Conexion.fop.executeQuery();
-            while (resultado.next()) {
-                int identificador = resultado.getInt("IDENTIFICADOR");
-                String numero = resultado.getString("NUMERO");
+//    private LinkedList<Soporte> soportesDeIngreso(int idingreso) {
+//        LinkedList<Soporte> soportes = new LinkedList<>();
+//        try {
+//            Conexion.fop = Conexion.conexion.prepareCall("call LEER_SOPORTES_INGRESO(?)");
+//            Conexion.fop.setInt(1, idingreso);
+//            ResultSet resultado = Conexion.fop.executeQuery();
+//            while (resultado.next()) {
+//                int identificador = resultado.getInt("IDENTIFICADOR");
+//                String numero = resultado.getString("NUMERO");
 //                byte[] bytes=resultado.getBlob("ARCHIVO").getBytes(1, (int) resultado.getBlob("ARCHIVO").length());
 //                Image archivo=Toolkit.getDefaultToolkit().createImage(bytes);
 
-                Soporte soporte = new Soporte(identificador, numero, null);
-                soportes.add(soporte);
-            }
-            return soportes;
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
+//                Soporte soporte = new Soporte(identificador, numero, null);
+//                soportes.add(soporte);
+//            }
+//            return soportes;
+//        } catch (SQLException ex) {
+//            return null;
+//        }
+//    }
 }

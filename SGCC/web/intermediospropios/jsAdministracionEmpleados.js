@@ -21,7 +21,7 @@ $(function ()
     function leerEmpleados()
     {
         //Aqui se crean variables y captura informacion
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             operacion: "leerEmpleados"
         }, function (data) {
             var resultado = data;
@@ -33,7 +33,7 @@ $(function ()
                     tabla.removeChild(tabla.firstChild);
                 }
             }
-            for (var i = 0; resultado.length; i++)
+            for (var i = 0; i<resultado.length; i++)
             {
 
                 var tr = document.createElement("tr");
@@ -55,20 +55,12 @@ $(function ()
                 var td6 = document.createElement("td");
                 var texto6 = document.createTextNode(resultado[i].salarioBasico);
                 td6.appendChild(texto6);
-                //Link de soportes
-//                var td7 = document.createElement("td");
-//                var link = document.createElement("button");
-//                link.setAttribute("id","soportes");
-//                link.setAttribute("class","form-control");
-//                link.setAttribute("value",resultado[i].identificador);
-//                td7.appendChild(link);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
                 tr.appendChild(td4);
                 tr.appendChild(td5);
                 tr.appendChild(td6);
-                //tr.appendChild(td7);
                 tabla.appendChild(tr);
             }
         }).fail(function ()
@@ -85,7 +77,7 @@ $(function ()
         var cargo = document.getElementById("cargoNE").value;
         var salarioBasico = document.getElementById("salarioNE").value;
         var contrasena = document.getElementById("contrasenaNE").value;
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             operacion: "nuevoEmpleado",
             nombre: nombre,
             cedula: cedula,
@@ -96,7 +88,6 @@ $(function ()
         }, function (data) {
             var resultado = data;
             alert(resultado);
-//            leerUsuarios();
             location.reload(true);
         }).fail(function ()
         {
@@ -111,21 +102,21 @@ $(function ()
         var nombre = document.getElementById("nombreME").value;
         var correo = document.getElementById("correoME").value;
         var cargo = document.getElementById("cargoME").value;
-        var salario = document.getElementById("salarioME").value;
+        var salarioBasico = document.getElementById("salarioME").value;
         var contrasena = document.getElementById("contrasenaME").value;
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             //Aqui van los parametros
             operacion: "modificarEmpleado",
             cedula: cedula,
             nombre: nombre,
             correo: correo,
             cargo: cargo,
-            salario: salario,
+            salarioBasico: salarioBasico,
             contrasena: contrasena
         }, function (data) {
             var resultado = data;
             alert(resultado);
-            leerUsuarios();
+            location.reload(true);
         }).fail(function ()
         {
             alert("error en la operacion modificar un empleado");
@@ -135,7 +126,7 @@ $(function ()
     function eliminarEmpleado()
     {
         var cedula = $('select[name=cedulaEE]').val();
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             operacion: "eliminarEmpleado",
             cedula: cedula
         }, function (data) {
@@ -147,7 +138,7 @@ $(function ()
 
     function leerCedulaModificar()
     {
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             operacion: "leerCedulaModificar"
         }, function (data) {
             var resultado = data;
@@ -166,7 +157,7 @@ $(function ()
     }
     function leerCedulaEliminar()
     {
-        $.post("Controladora", {
+        $.post("ControladoraAdministracionEmpleados", {
             operacion: "leerCedulaEliminar"
         }, function (data) {
             var resultado = data;
@@ -184,19 +175,19 @@ $(function ()
         });
     }
 
-    function buscarMU()
+    function buscarME()
     {
-        var cedula = $('select[name=cedulaMU]').val();
-        $.post("Controladora", {
-            operacion: "buscarUsuarioModificar",
+        var cedula = $('select[name=cedulaME]').val();
+        $.post("ControladoraAdministracionEmpleados", {
+            operacion: "buscarEmpleadoModificar",
             cedula: cedula
         }, function (data) {
             var resultado = data;
-            document.getElementById("nombreMU").value = resultado.nombre;
-            document.getElementById("correoMU").value = resultado.correo;
-            document.getElementById("cargoMU").value = resultado.cargo;
-            document.getElementById("salarioMU").value = resultado.salario_basico;
-            document.getElementById("contrasenaMU").value = resultado.contrasena;
+            document.getElementById("nombreME").value = resultado.nombre;
+            document.getElementById("correoME").value = resultado.correo;
+            document.getElementById("cargoME").value = resultado.cargo;
+            document.getElementById("salarioME").value = resultado.salarioBasico;
+            document.getElementById("contrasenaME").value = resultado.contrasena;
 
         }).fail(function ()
         {
@@ -204,20 +195,18 @@ $(function ()
         });
     }
 
-    function buscarEU()
+    function buscarEE()
     {
-        var cedula = $('select[name=cedulaMU]').val();
-        $.post("Controladora", {
-            operacion: "buscarUsuarioModificar",
+        var cedula = $('select[name=cedulaEE]').val();
+        $.post("ControladoraAdministracionEmpleados", {
+            operacion: "buscarEmpleadoEliminar",
             cedula: cedula
         }, function (data) {
             var resultado = data;
-            document.getElementById("nombreEU").value = resultado.nombre;
-            document.getElementById("correoEU").value = resultado.correo;
-            document.getElementById("cargoEU").value = resultado.cargo;
-            document.getElementById("salarioEU").value = resultado.salario_basico;
-            document.getElementById("contrasenaEU").value = resultado.contrasena;
-
+            document.getElementById("nombreEE").value = resultado.nombre;
+            document.getElementById("correoEE").value = resultado.correo;
+            document.getElementById("cargoEE").value = resultado.cargo;
+            document.getElementById("salarioEE").value = resultado.salarioBasico;
         }).fail(function ()
         {
             alert("error en la operacion de buscar usuario");

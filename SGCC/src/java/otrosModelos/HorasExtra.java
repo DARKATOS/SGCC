@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelos;
+package otrosModelos;
 
 /**
  *
@@ -11,19 +11,19 @@ package modelos;
  */
 public class HorasExtra {
     private int identificador;
-    private int horas;
+    private int numeroHoras;
     private int valor;
     private TipoHorasExtra tipoHora;
 
-    public HorasExtra(int identificador, int horas, int valor, TipoHorasExtra tipoHora) {
+    public HorasExtra(int identificador, int numeroHoras, int valor, TipoHorasExtra tipoHora) {
         this.identificador = identificador;
-        this.horas = horas;
+        this.numeroHoras = numeroHoras;
         this.valor = valor;
         this.tipoHora = tipoHora;
     }
 
-    public int getHoras() {
-        return horas;
+    public int getNumeroHoras() {
+        return numeroHoras;
     }
 
     public int getIdentificador() {

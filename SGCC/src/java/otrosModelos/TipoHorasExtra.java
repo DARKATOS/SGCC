@@ -3,24 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelos;
+package otrosModelos;
 
 /**
  *
  * @author Jorge Alejandro
  */
-public class TipoDeduccion {
+public class TipoHorasExtra {
     private int identificador;
     private String nombre;
+    private double porcentaje;
 
-    public TipoDeduccion(int identificador, String nombre) {
+    public TipoHorasExtra(int identificador, String nombre, double porcentaje) {
         this.identificador = identificador;
         this.nombre = nombre;
-    }
-
-    public TipoDeduccion(int identificador) {
-        this.identificador=identificador;
-        this.nombre=null;
+        this.porcentaje = porcentaje;
     }
 
     public int getIdentificador() {
@@ -30,4 +27,10 @@ public class TipoDeduccion {
     public String getNombre() {
         return nombre;
     }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+    
+    
 }

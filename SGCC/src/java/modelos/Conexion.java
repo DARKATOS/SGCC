@@ -5,17 +5,20 @@
  */
 package modelos;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author Jorge Alejandro
  */
 public class Conexion {
-
-    public static Connection conexion;
-    public static Statement consulta;
-    public static CallableStatement fop;
+    private Connection conexion;
+    private Statement consulta;
+    private CallableStatement fop;
 
     public Conexion() {
         try {
@@ -32,6 +35,8 @@ public class Conexion {
     
     public void desconectar() {
         try {
+            consulta.close();
+            fop.close();
             conexion.close();
         } catch (SQLException ex) {
             System.out.println("Error al desconectar de la base de datos");
@@ -41,4 +46,26 @@ public class Conexion {
     public Connection getConexion() {
         return conexion;
     }
+
+    public Statement getConsulta() {
+        return consulta;
+    }
+
+    public CallableStatement getFop() {
+        return fop;
+    }
+
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
+    }
+
+    public void setConsulta(Statement consulta) {
+        this.consulta = consulta;
+    }
+
+    public void setFop(CallableStatement fop) {
+        this.fop = fop;
+    }
+
+ 
 }

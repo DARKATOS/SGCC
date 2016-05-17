@@ -54,7 +54,7 @@
                         <li><a href="gestionInfomes.jsp">Informes</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href="administracionUsuarios.jsp">Usuarios</a></li>
+                        <li><a href="administracionEmpleados.jsp">Empleados</a></li>
                         <!--<li><a href="">Nav item again</a></li>
                         <li><a href="">One more nav</a></li>
                         <li><a href="">Another nav item</a></li>

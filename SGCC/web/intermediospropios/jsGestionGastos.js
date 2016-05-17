@@ -22,7 +22,7 @@ $(function ()
     function leerGastos()
     {
         //Aqui se crean variables y captura informacion
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "leerGastos"
                     //Aqui van los parametros
         }, function (data) {
@@ -35,7 +35,7 @@ $(function ()
                     tabla.removeChild(tabla.firstChild);
                 }
             }
-            for (var i = 0; resultado.length; i++)
+            for (var i = 0; i<resultado.length; i++)
             {
 
                 var tr = document.createElement("tr");
@@ -85,7 +85,7 @@ $(function ()
         var fuente = $('select[name=fuenteNG]').val();
         var idsoporte = document.getElementById("idsoporteNG").value;
         var soporte = null;
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "nuevoGasto",
             fecha: fecha,
             empresa: empresa,
@@ -112,7 +112,7 @@ $(function ()
         var fuente = $('select[name=fuenteMG]').val();
         var idsoporte = document.getElementById("idsoporteMG").value;
         var soporte = null;
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             //Aqui van los parametros
             operacion: "modificarGasto",
             identificador: identificador,
@@ -136,7 +136,7 @@ $(function ()
     function eliminarGasto()
     {
         var identificador = document.getElementById("idOEG").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "eliminarGasto",
             identificador : identificador 
         }, function (data) {
@@ -151,7 +151,7 @@ $(function ()
         //Aqui se crean variables y captura informacion
 
         var identificador = document.getElementById("idOMG").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "buscarGasto",
             identificador: identificador
         }, function (data) {
@@ -171,7 +171,7 @@ $(function ()
     {
         //Aqui se crean variables y captura informacion
         var identificador = document.getElementById("idOEG").value;
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             //Aqui van los parametros
             operacion: "buscarGasto",
             identificador: identificador
@@ -188,7 +188,7 @@ $(function ()
 
     function leerConceptosModificar(seleccionado)
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "leerConceptosGasto"
         }, function (data) {
             var resultado = data;
@@ -219,7 +219,7 @@ $(function ()
 
     function leerFuentesModificar(seleccionado)
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "leerFuentes"
         }, function (data) {
             var resultado = data;
@@ -251,7 +251,7 @@ $(function ()
 
     function leerConceptos()
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "leerConceptosGasto"
         }, function (data) {
             var resultado = data;
@@ -271,7 +271,7 @@ $(function ()
 
     function leerFuentes()
     {
-        $.post("Controladora", {
+        $.post("ControladoraGestionGastos", {
             operacion: "leerFuentes"
         }, function (data) {
             var resultado = data;

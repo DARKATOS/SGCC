@@ -32,8 +32,9 @@ import modelos.EmpleadoCRUD;
  */
 @WebServlet(name = "Controladora", urlPatterns = {"/Controladora"})
 public class Controladora extends HttpServlet {
-    
-    private HttpSession sesion=null;
+
+    private HttpSession sesion = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -105,8 +106,7 @@ public class Controladora extends HttpServlet {
                 sesion.setAttribute("correo", empelado.getCorreo());
                 //redirijo a página con información de login exitoso
                 response.sendRedirect("principal.jsp");
-            } 
-            else {
+            } else {
                 //lógica para login inválido
             }
         } else if ("leerIngresos".equals(operacion)) {
@@ -235,9 +235,10 @@ public class Controladora extends HttpServlet {
             response.setContentType("text/plain");
             response.getWriter().write(mensaje);
         }
-        
+
         c.desconectar();
     }
+
     /**
      * Returns a short description of the servlet.
      *
