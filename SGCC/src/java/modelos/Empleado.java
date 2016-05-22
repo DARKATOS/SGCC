@@ -28,6 +28,16 @@ public class Empleado {
         this.contrasena=null;
     }
     
+    public Empleado(String nombre, String cedula, int salarioBasico) {
+        this.identificador=-1;
+        this.nombre=nombre;
+        this.cedula=cedula;
+        this.correo=null;
+        this.cargo=null;
+        this.salarioBasico=salarioBasico;
+        this.contrasena=null;
+    }
+    
     
 
     public Empleado(String cedula) {

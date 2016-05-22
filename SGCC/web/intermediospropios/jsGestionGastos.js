@@ -13,10 +13,37 @@ $(function ()
     $("#buscarEG").on("click", buscarEG);
 
     $(document).ready(function () {
+        verificarEmpleado();
         leerGastos();
         leerConceptos();
         leerFuentes();
     });
+
+    function verificarEmpleado()
+    {
+
+        $.post("Controladora", {
+            //Aqui van los parametros
+            operacion: "verificarEmpleado"
+        }, function (data) {
+            var resultado = data;
+            alert(resultado);
+            if (resultado != "ADMINISTRADOR")
+            {
+                var tabla = document.getElementById("menuADM");
+                if (tabla.hasChildNodes())
+                {
+                    while (tabla.childNodes.length >= 1)
+                    {
+                        tabla.removeChild(tabla.firstChild);
+                    }
+                }
+            }
+        }).fail(function ()
+        {
+            alert("error en la operacion modificarGasto");
+        });
+    }
 
 
     function leerGastos()
@@ -35,7 +62,7 @@ $(function ()
                     tabla.removeChild(tabla.firstChild);
                 }
             }
-            for (var i = 0; i<resultado.length; i++)
+            for (var i = 0; i < resultado.length; i++)
             {
 
                 var tr = document.createElement("tr");
@@ -138,7 +165,7 @@ $(function ()
         var identificador = document.getElementById("idOEG").value;
         $.post("ControladoraGestionGastos", {
             operacion: "eliminarGasto",
-            identificador : identificador 
+            identificador: identificador
         }, function (data) {
             var resultado = data;
             alert(resultado);

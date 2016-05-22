@@ -13,10 +13,37 @@ $(function ()
     $("#buscarEE").on("click", buscarEE);
 
     $(document).ready(function () {
+        verificarEmpleado();
         leerEmpleados();
         leerCedulaModificar();
         leerCedulaEliminar();
     });
+    
+    function verificarEmpleado()
+    {
+
+        $.post("Controladora", {
+            //Aqui van los parametros
+            operacion: "verificarEmpleado"
+        }, function (data) {
+            var resultado = data;
+            alert(resultado);
+            if (resultado != "ADMINISTRADOR")
+            {
+                var tabla = document.getElementById("menuADM");
+                if (tabla.hasChildNodes())
+                {
+                    while (tabla.childNodes.length >= 1)
+                    {
+                        tabla.removeChild(tabla.firstChild);
+                    }
+                }
+            }
+        }).fail(function ()
+        {
+            alert("error en la operacion modificarGasto");
+        });
+    }
 
     function leerEmpleados()
     {

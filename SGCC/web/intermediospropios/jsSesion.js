@@ -15,11 +15,21 @@ $(function ()
             operacion: "iniciarSesion",
             cedula: cedula,
             contrasena: contrasena
-        }, function () {
+        }, function (data) {
+            var resultado=data;
+            alert(data);
+            if (resultado=="1")
+            {
+                alert("Ha iniciado sesion correctamente");
+            }
+            else
+            {
+                alert("Error al iniciar sesion");
+            }
+            
         }).fail(function ()
         {
             alert("Error en la operacion");
         });
-        
     }
 });

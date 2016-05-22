@@ -21,12 +21,12 @@ public class Liquidacion {
     private int valorHoraExtra;
     private int numeroHorasExtra;
     private int totalHorasExtra;
-    private int salud;
-    private int pension;
-    private int salarioNeto;
+    private double salud;
+    private double pension;
+    private double salarioNeto;
     private Empleado empleado;
 
-    public Liquidacion(int identificador, String fecha, int comisiones, int auxilioTransporte, int valorHoraExtra, int numeroHorasExtra, int totalHorasExtra, int salud, int pension, int salarioNeto, Empleado empleado) {
+    public Liquidacion(int identificador, String fecha, int comisiones, int auxilioTransporte, int valorHoraExtra, int numeroHorasExtra, int totalHorasExtra, double salud, double pension, double salarioNeto, Empleado empleado) {
         this.identificador = identificador;
         this.fecha = fecha;
         this.comisiones = comisiones;
@@ -82,15 +82,21 @@ public class Liquidacion {
         return identificador;
     }
 
-    public int getPension() {
+    public double getSalud() {
+        return salud;
+    }
+
+    public double getPension() {
         return pension;
     }
 
-    public int getSalarioNeto() {
+    public double getSalarioNeto() {
         return salarioNeto;
     }
 
-    public int getSalud() {
-        return salud;
+    public int getTotalHorasExtra() {
+        return totalHorasExtra;
     }
+
+    
 }

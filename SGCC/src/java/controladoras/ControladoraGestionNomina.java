@@ -7,7 +7,6 @@ package controladoras;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelos.Empleado;
-import modelos.EmpleadoCRUD;
 import modelos.Liquidacion;
 import modelos.LiquidacionCRUD;
 
@@ -38,6 +36,7 @@ public class ControladoraGestionNomina extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String operacion=request.getParameter("operacion");
+        
         if ("leerLiquidaciones".equals(operacion))
         {
             LiquidacionCRUD crud=new LiquidacionCRUD();
@@ -147,6 +146,25 @@ public class ControladoraGestionNomina extends HttpServlet {
             }
             response.setContentType("text/plain");
             response.getWriter().write(mensaje);
+        }
+        else if("leerEmpleadosNuevaLiquidacion".equals(operacion))
+        {
+            LiquidacionCRUD crud=new LiquidacionCRUD();
+            LinkedList<Empleado> empleados= crud.leerEmpleadosLiquidacion();
+            Gson json = new Gson();
+            String resultado = json.toJson(empleados);
+            response.setContentType("application/json");
+            response.getWriter().write(resultado);
+        }
+        else if("leerSalarioBasicoCedula".equals(operacion))
+        {
+            String cedula=request.getParameter("empleado");
+            LiquidacionCRUD crud=new LiquidacionCRUD();
+            int salarioBasico= crud.leerSalarioBasicoCedula(cedula);
+            String salarioBasicop=String.valueOf(salarioBasico);
+            System.out.println(salarioBasicop);
+            response.setContentType("text/plain");
+            response.getWriter().write(salarioBasicop);
         }
     }
 

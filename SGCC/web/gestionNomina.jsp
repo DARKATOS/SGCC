@@ -49,12 +49,13 @@
                     <ul class="nav nav-sidebar">
                         <li><a href="principal.jsp">Resumen <span class="sr-only">(current)</span></a></li>
                         <li><a href="gestionIngresos.jsp">Ingresos</a></li>
-                        <li class="active"><a href="gestionGastos.jsp">Gastos</a></li>
-                        <li><a href="gestionNomina.jsp">Nomina</a></li>
-                        <li><a href="gestionInfomes.jsp">Informes</a></li>
+                        <li><a href="gestionGastos.jsp">Gastos</a></li>
+                        
                     </ul>
-                    <ul class="nav nav-sidebar">
+                    <ul class="nav nav-sidebar" id="menuADM">
                         <li><a href="administracionEmpleados.jsp">Empleados</a></li>
+                        <li class="active"><a href="gestionNomina.jsp">Nomina</a></li>
+                        <li><a href="gestionInfomes.jsp">Informes</a></li>
                         <!--<li><a href="">Nav item again</a></li>
                         <li><a href="">One more nav</a></li>
                         <li><a href="">Another nav item</a></li>
