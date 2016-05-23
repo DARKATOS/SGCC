@@ -96,24 +96,27 @@ public class Controladora extends HttpServlet {
             cedula = request.getParameter("cedula");
             contrasena = request.getParameter("contrasena");
             EmpleadoCRUD crud = new EmpleadoCRUD();
-            Empleado empelado = crud.inicarSesion(cedula, contrasena);
+            Empleado empleado = crud.inicarSesion(cedula, contrasena);
             System.out.println(sesion.getAttribute("usuario"));
-            if (empelado != null && sesion.getAttribute("usuario") == null) {
+            if (empleado != null && sesion.getAttribute("usuario") == null) {
                 System.out.println("Entre aqui1");
-                sesion.setAttribute("identificador", empelado.getIdentificador());
-                sesion.setAttribute("usuario", empelado.getNombre());
-                sesion.setAttribute("cedula", empelado.getCedula());
-                sesion.setAttribute("cargo", empelado.getCargo());
-                sesion.setAttribute("correo", empelado.getCorreo());
+                sesion.setAttribute("identificador", empleado.getIdentificador());
+                sesion.setAttribute("usuario", empleado.getNombre());
+                sesion.setAttribute("cedula", empleado.getCedula());
+                sesion.setAttribute("cargo", empleado.getCargo());
+                sesion.setAttribute("correo", empleado.getCorreo());
                 response.setContentType("text/plain");
                 response.getWriter().write("1");
+            } else if (empleado == null) {
+                response.setContentType("text/plain");
+                response.getWriter().write("0");
             } else {
                 System.out.println("Entre aqui2");
-                String mensaje="0";
+                String mensaje = "1";
                 response.setContentType("text/plain");
                 response.getWriter().write(mensaje);
             }
-        } else if ("verificarUsuario".equals(operacion)) {
+        } else if ("verificarEmpleado".equals(operacion)) {
             String resultado = sesion.getAttribute("cargo").toString();
             response.setContentType("text/plain");
             response.getWriter().write(resultado);

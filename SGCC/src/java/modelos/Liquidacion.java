@@ -97,6 +97,4 @@ public class Liquidacion {
     public int getTotalHorasExtra() {
         return totalHorasExtra;
     }
-
-    
 }

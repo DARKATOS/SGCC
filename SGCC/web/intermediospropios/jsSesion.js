@@ -19,12 +19,14 @@ $(function ()
             var resultado=data;
             alert(data);
             if (resultado=="1")
-            {
+            {  
                 alert("Ha iniciado sesion correctamente");
+                window.location="gestionIngresos.jsp";
             }
             else
             {
                 alert("Error al iniciar sesion");
+                location.reload(true);
             }
             
         }).fail(function ()
